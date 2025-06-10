@@ -57,6 +57,84 @@ export interface BlackBoxSource {
   position: number;
 }
 
+// ExomlAPI Types
+export interface ExomlAPIMessage {
+	role: "user" | "assistant" | "system";
+	content: string;
+}
+
+export interface ExomlAPIOptions {
+	messages: ExomlAPIMessage[];
+	systemPrompt ? : string;
+	model ? : string;
+}
+
+export interface ExomlAPIResponse {
+	content: string;
+}
+
+export interface ExomlAPIRandomData {
+	id: string;
+	chatId: string;
+	userId: string;
+	antiBotId: string;
+}
+
+// Pollinations Types
+export interface PollinationsOptions {
+	prompt: string;
+	nologo ? : boolean;
+}
+
+export interface PollinationsResponse {
+	url: string;
+}
+
+// DreamAnalysis Types
+export interface DreamAnalysisOptions {
+	text: string;
+	isPremium ? : boolean;
+}
+
+export interface DreamAnalysisResponse {
+	analysis ? : string;
+	interpretation ? : string;
+	symbols ? : unknown[];
+	emotions ? : string[];
+	themes ? : string[];
+	[key: string]: unknown; // For flexible response structure
+}
+
+export interface SoundCloudTrack {
+	id: number;
+	title: string;
+	url: string;
+	duration: string;
+	thumbnail: string | null;
+	author: {
+		name: string;
+		url: string;
+	};
+	like_count: string;
+	download_count: string;
+	play_count: string;
+	release_date: string | null;
+}
+
+export interface SoundCloudSearchOptions {
+	query: string;
+	limit ? : number;
+}
+
+export interface SoundCloudResponse {
+	tracks: SoundCloudTrack[];
+}
+
+export interface SoundCloudCache {
+	version: string;
+	id: string;
+}
+
 /**
  * Pinterest Scrape Types
  */
