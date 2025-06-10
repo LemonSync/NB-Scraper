@@ -99,10 +99,10 @@ export interface DreamAnalysisOptions {
 export interface DreamAnalysisResponse {
 	analysis ? : string;
 	interpretation ? : string;
-	symbols ? : any[];
+	symbols ? : unknown[];
 	emotions ? : string[];
 	themes ? : string[];
-	[key: string]: any; // For flexible response structure
+	[key: string]: unknown; // For flexible response structure
 }
 
 export interface SoundCloudTrack {

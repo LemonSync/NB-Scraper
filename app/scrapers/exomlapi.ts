@@ -49,7 +49,7 @@ export const EXOML_MODELS = [
  * Generate random IDs for API request
  */
 function generateRandomIds(): ExomlAPIRandomData {
-  const gen = (length: number, charSet: any = {}): string => {
+  const gen = (length: number, charSet: unknown = {}): string => {
     const l = "abcdefghijklmnopqrstuvwxyz";
     const u = l.toUpperCase();
     const s = "-_";

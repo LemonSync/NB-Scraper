@@ -154,7 +154,7 @@ export async function searchSoundCloud(
       }
     });
 
-    const tracks: SoundCloudTrack[] = response.data.collection.map((track: any) => ({
+    const tracks: SoundCloudTrack[] = response.data.collection.map((track: unknown) => ({
       id: track.id,
       title: track.title,
       url: track.permalink_url,

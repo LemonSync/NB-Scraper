@@ -11,7 +11,6 @@
  * @version 1.0.0
  */
 
-import axios from 'axios';
 import FormData from 'form-data';
 import fs from 'fs';
 import path from 'path';
@@ -27,7 +26,6 @@ import {
   createSuccessResponse, 
   makeRequest, 
   validateRequiredParams,
-  sleep
 } from '../utils';
 
 const BASE_URL = 'https://image.pollinations.ai/prompt/';
