@@ -9,8 +9,7 @@ import {
   createErrorResponse, 
   createSuccessResponse, 
   makeRequest, 
-  validateRequiredParams,
-  safeJsonParse
+  validateRequiredParams
 } from '../utils';
 
 /**
@@ -63,7 +62,7 @@ export async function pinterest(
     }, options);
 
     // Extract links from response headers
-    const linkHeader = response.headers['link'];
+    const linkHeader = response.headers.link;
     if (!linkHeader) {
       return createErrorResponse('No results found for the query', {
         type: ScraperErrorType.INVALID_RESPONSE,

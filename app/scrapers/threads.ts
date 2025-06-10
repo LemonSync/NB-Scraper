@@ -56,7 +56,7 @@ export async function threads(
 
     // Check if URL is from Threads
     const domain = extractDomain(sanitizedUrl);
-    if (!domain || !domain.includes('threads.net')) {
+    if (!domain?.includes('threads.net')) {
       return createErrorResponse('URL must be from threads.net', { domain, url: sanitizedUrl });
     }
 
@@ -124,7 +124,7 @@ export async function threads(
 
   } catch (error) {
     return createErrorResponse(error as Error, { 
-      url: url?.substring(0, 100),
+      url: url.substring(0, 100),
       options: { ...options, headers: undefined }
     });
   }
