@@ -1,7 +1,7 @@
 /**
  * @fileoverview NB Scraper - Community scraper library by Er Rickow 
  * @author ErRickow
- * @version 1.0.0
+ * @version 1.1.0
  * @license The Unlicense
  * 
  * @description
@@ -32,46 +32,58 @@ export * from './scrapers/index';
 
 // Export types
 export type {
-  NBScraperResponse,
-  NBScraperConfig,
-  RequestConfig,
-  ScraperError,
-  ScraperErrorType,
-  BlackBoxAIData,
-  BlackBoxAIOptions,
-  BlackBoxSource,
-  ThreadsMediaData,
-  ThreadsOptions,
-  PinterestData
+	NBScraperResponse,
+	NBScraperConfig,
+	RequestConfig,
+	ScraperError,
+	ScraperErrorType,
+	BlackBoxAIData,
+	BlackBoxAIOptions,
+	BlackBoxSource,
+	ExomlAPIMessage,
+	ExomlAPIOptions,
+	ExomlAPIData,
+	ExomlAPIRandomData,
+	PollinationsOptions,
+	PollinationsData,
+	SoundCloudTrack,
+	SoundCloudSearchOptions,
+	SoundCloudData,
+	SoundCloudCache,
+	DreamAnalysisOptions,
+	DreamAnalysisData,
+	ThreadsMediaData,
+	ThreadsOptions,
+	PinterestData
 } from './types';
 
 // Export utilities (for advanced users)
 export {
-  createErrorResponse,
-  createSuccessResponse,
-  isValidUrl,
-  sanitizeString,
-  extractDomain,
-  formatBytes,
-  DEFAULT_CONFIG,
-  CREATOR
+	createErrorResponse,
+	createSuccessResponse,
+	isValidUrl,
+	sanitizeString,
+	extractDomain,
+	formatBytes,
+	DEFAULT_CONFIG,
+	CREATOR
 } from './utils';
 
 /**
  * Library version
  * @public
  */
-export const VERSION = '1.0.0';
+export const VERSION = '1.2.0';
 
 /**
  * Library information
  * @public
  */
 export const INFO = {
-  name: 'nb-scraper',
-  version: VERSION,
-  author: 'Er Rickow',
-  description: 'Community scraper library',
-  repository: 'https://github.com/chakszzz/nb-scraper',
-  documentation: 'https://chakszzz.github.io/nb-scraper'
+	name: 'nb-scraper',
+	version: VERSION,
+	author: 'Er Rickow',
+	description: 'NB Community scraper library',
+	repository: 'https://github.com/chakszzz/nb-scraper',
+	documentation: 'https://chakszzz.github.io/nb-scraper'
 } as const;

@@ -1,7 +1,7 @@
 /**
  * @fileoverview Type definitions for NB Scraper
  * @author ErRickow
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 /**
@@ -34,126 +34,6 @@ export interface RequestConfig {
 }
 
 /**
- * BlackBox AI response data structure
- */
-export interface BlackBoxAIData {
-  /** The AI's response text */
-  response: string;
-  /** Array of sources used by the AI */
-  source: BlackBoxSource[];
-}
-
-/**
- * Source information from BlackBox AI
- */
-export interface BlackBoxSource {
-  /** URL of the source */
-  link: string;
-  /** Title of the source */
-  title: string;
-  /** Text snippet from the source */
-  snippet: string;
-  /** Position/ranking of the source */
-  position: number;
-}
-
-// ExomlAPI Types
-export interface ExomlAPIMessage {
-	role: "user" | "assistant" | "system";
-	content: string;
-}
-
-export interface ExomlAPIOptions {
-	messages: ExomlAPIMessage[];
-	systemPrompt ? : string;
-	model ? : string;
-}
-
-export interface ExomlAPIResponse {
-	content: string;
-}
-
-export interface ExomlAPIRandomData {
-	id: string;
-	chatId: string;
-	userId: string;
-	antiBotId: string;
-}
-
-// Pollinations Types
-export interface PollinationsOptions {
-	prompt: string;
-	nologo ? : boolean;
-}
-
-export interface PollinationsResponse {
-	url: string;
-}
-
-// DreamAnalysis Types
-export interface DreamAnalysisOptions {
-	text: string;
-	isPremium ? : boolean;
-}
-
-export interface DreamAnalysisResponse {
-	analysis ? : string;
-	interpretation ? : string;
-	symbols ? : unknown[];
-	emotions ? : string[];
-	themes ? : string[];
-	[key: string]: unknown; // For flexible response structure
-}
-
-export interface SoundCloudTrack {
-	id: number;
-	title: string;
-	url: string;
-	duration: string;
-	thumbnail: string | null;
-	author: {
-		name: string;
-		url: string;
-	};
-	like_count: string;
-	download_count: string;
-	play_count: string;
-	release_date: string | null;
-}
-
-export interface SoundCloudSearchOptions {
-	query: string;
-	limit ? : number;
-}
-
-export interface SoundCloudResponse {
-	tracks: SoundCloudTrack[];
-}
-
-export interface SoundCloudCache {
-	version: string;
-	id: string;
-}
-
-/**
- * Pinterest Scrape Types
- */
-export interface PinterestData {
-  /** Array of URLs */
-  result: string[];
-}
-
-/**
- * Threads media data structure
- */
-export interface ThreadsMediaData {
-  /** Array of image URLs */
-  image_urls: string[];
-  /** Array of video URLs */
-  video_urls: string[];
-}
-
-/**
  * Error types that can occur during scraping
  */
 export enum ScraperErrorType {
@@ -167,6 +47,14 @@ export enum ScraperErrorType {
   RATE_LIMITED = 'RATE_LIMITED',
   /** Service is temporarily unavailable */
   SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+  /** Authentication or authorization failed */
+  AUTH_ERROR = 'AUTH_ERROR',
+  /** Error parsing response data */
+  PARSE_ERROR = 'PARSE_ERROR',
+  /** Error during image generation */
+  IMAGE_GENERATION_ERROR = 'IMAGE_GENERATION_ERROR',
+  /** Error calling external API */
+  API_ERROR = 'API_ERROR',
   /** Unknown or unexpected error */
   UNKNOWN_ERROR = 'UNKNOWN_ERROR'
 }
@@ -185,9 +73,136 @@ export interface ScraperError {
   context?: Record<string, unknown>;
 }
 
+/* ==================== Scraper-Specific Types ==================== */
+
 /**
- * Options for the BlackBox AI scraper
+ * Pollinations AI Image Generation Types
  */
+export interface PollinationsOptions {
+  prompt: string;
+  nologo?: boolean;
+}
+
+export interface PollinationsData {
+  /** URL of the generated image on Catbox.moe */
+  url: string;
+  /** Direct Pollinations image URL */
+  directUrl: string;
+}
+
+/**
+ * Pinterest Scraper Types
+ */
+export interface PinterestData {
+  /** Array of image URLs */
+  result: string[];
+}
+
+/**
+ * SoundCloud Scraper Types
+ */
+export interface SoundCloudTrack {
+  id: number;
+  title: string;
+  url: string;
+  duration: string;
+  thumbnail: string | null;
+  author: {
+    name: string;
+    url: string;
+  };
+  like_count: string;
+  download_count: string;
+  play_count: string;
+  release_date: string | null;
+  /** Audio quality (HQ/SQ) */
+  audio_quality?: string;
+  /** File size if downloadable */
+  file_size?: string | null;
+}
+
+export interface SoundCloudSearchOptions {
+  query: string;
+  limit?: number;
+}
+
+export interface SoundCloudData {
+  tracks: SoundCloudTrack[];
+}
+
+export interface SoundCloudCache {
+  version: string;
+  id: string;
+}
+
+/**
+ * ExomlAPI AI Text Completion Types
+ */
+export interface ExomlAPIMessage {
+  role: "user" | "assistant" | "system";
+  content: string;
+}
+
+export interface ExomlAPIOptions {
+  messages: ExomlAPIMessage[];
+  systemPrompt?: string;
+  model?: string;
+}
+
+export interface ExomlAPIData {
+  content: string;
+}
+
+export interface ExomlAPIRandomData {
+  id: string;
+  chatId: string;
+  userId: string;
+  antiBotId: string;
+}
+
+/**
+ * DreamAnalysis Types
+ */
+export interface DreamAnalysisOptions {
+  text: string;
+  isPremium?: boolean;
+}
+
+export interface DreamAnalysisData {
+  analysis?: string;
+  interpretation?: string;
+  symbols?: {
+    name: string;
+    meaning: string;
+    relevance: number;
+  }[];
+  emotions?: string[];
+  themes?: string[];
+  /** Additional metadata from analysis */
+  metadata?: Record<string, unknown>;
+}
+
+/**
+ * BlackBox AI Types
+ */
+export interface BlackBoxAIData {
+  /** The AI's response text */
+  response: string;
+  /** Array of sources used by the AI */
+  source: BlackBoxSource[];
+}
+
+export interface BlackBoxSource {
+  /** URL of the source */
+  link: string;
+  /** Title of the source */
+  title: string;
+  /** Text snippet from the source */
+  snippet: string;
+  /** Position/ranking of the source */
+  position: number;
+}
+
 export interface BlackBoxAIOptions extends RequestConfig {
   /** Maximum number of tokens in the response */
   maxTokens?: number;
@@ -200,8 +215,15 @@ export interface BlackBoxAIOptions extends RequestConfig {
 }
 
 /**
- * Options for the Threads scraper
+ * Threads Scraper Types
  */
+export interface ThreadsMediaData {
+  /** Array of image URLs */
+  image_urls: string[];
+  /** Array of video URLs */
+  video_urls: string[];
+}
+
 export interface ThreadsOptions extends RequestConfig {
   /** Whether to include only images */
   imagesOnly?: boolean;

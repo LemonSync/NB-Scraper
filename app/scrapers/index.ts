@@ -1,18 +1,34 @@
 /**
  * @fileoverview Scrapers module exports
  * @author ErRickow
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 export { blackboxAi } from './blackbox';
 export { threads } from './threads';
 export { pinterest } from './pinterest';
+export { createExomlMessage, generateExomlResponse  } from './exomlapi';
+export { analyzeDream, quickDreamAnalysis, premiumDreamAnalysis } from './dreamanalysis';
+export { generatePollinationsImage, getPollinationsDirectUrl } from './pollinations';
+export { getClientID, searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud'
 
 // Re-export types for convenience
 export type {
   BlackBoxAIData,
   BlackBoxAIOptions,
   BlackBoxSource,
+  ExomlAPIMessage,
+  ExomlAPIOptions,
+  ExomlAPIData,
+  ExomlAPIRandomData,
+  PollinationsOptions,
+  PollinationsData,
+  SoundCloudTrack,
+  SoundCloudSearchOptions,
+  SoundCloudData,
+  SoundCloudCache,
+  DreamAnalysisOptions,
+  DreamAnalysisData,
   ThreadsMediaData,
   ThreadsOptions,
   PinterestData
