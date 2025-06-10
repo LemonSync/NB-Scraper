@@ -10,7 +10,7 @@ export { pinterest } from './pinterest';
 export { createExomlMessage, generateExomlResponse  } from './exomlapi';
 export { analyzeDream, quickDreamAnalysis, premiumDreamAnalysis } from './dreamanalysis';
 export { generatePollinationsImage, getPollinationsDirectUrl } from './pollinations';
-export { getClientID, searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud'
+export { getClientID, searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud';
 
 // Re-export types for convenience
 export type {

@@ -23,14 +23,10 @@ export interface NBScraperResponse<T = unknown> {
  * Configuration options for HTTP requests
  */
 export interface RequestConfig {
-  /** Request timeout in milliseconds */
-  timeout?: number;
-  /** Custom headers to include in the request */
-  headers?: Record<string, string>;
-  /** Maximum number of retry attempts */
-  retries?: number;
-  /** Delay between retry attempts in milliseconds */
-  retryDelay?: number;
+	timeout ? : number | undefined;
+	headers ? : Record < string, string > | undefined;
+	retries ? : number | undefined;
+	retryDelay ? : number | undefined;
 }
 
 /**
@@ -40,6 +36,7 @@ export enum ScraperErrorType {
   /** Network-related errors (connection, timeout, etc.) */
   NETWORK_ERROR = 'NETWORK_ERROR',
   /** Invalid or malformed input parameters */
+  INVALID_PARAMETER = 'INVALID_PARAMETER',
   INVALID_INPUT = 'INVALID_INPUT',
   /** API returned an unexpected response format */
   INVALID_RESPONSE = 'INVALID_RESPONSE',
@@ -80,7 +77,8 @@ export interface ScraperError {
  */
 export interface PollinationsOptions {
   prompt: string;
-  nologo?: boolean;
+  nologo ? : boolean;
+  [key: string]: unknown; // index signature
 }
 
 export interface PollinationsData {
@@ -104,26 +102,27 @@ export interface PinterestData {
 export interface SoundCloudTrack {
   id: number;
   title: string;
-  url: string;
-  duration: string;
-  thumbnail: string | null;
-  author: {
-    name: string;
-    url: string;
+  permalink_url: string;
+  full_duration: number;
+  artwork_url: string | null;
+  user: {
+    username: string;
+    permalink_url: string;
   };
-  like_count: string;
-  download_count: string;
-  play_count: string;
-  release_date: string | null;
-  /** Audio quality (HQ/SQ) */
-  audio_quality?: string;
-  /** File size if downloadable */
-  file_size?: string | null;
+  likes_count ? : number;
+  download_count ? : number;
+  playback_count ? : number;
+  release_date ? : string | null;
+  created_at ? : string;
+  high_quality ? : boolean;
+  downloadable ? : boolean;
+  original_content_size ? : number;
 }
 
 export interface SoundCloudSearchOptions {
   query: string;
   limit?: number;
+  [key: string]: unknown;
 }
 
 export interface SoundCloudData {
@@ -147,6 +146,7 @@ export interface ExomlAPIOptions {
   messages: ExomlAPIMessage[];
   systemPrompt?: string;
   model?: string;
+
 }
 
 export interface ExomlAPIData {
@@ -166,6 +166,7 @@ export interface ExomlAPIRandomData {
 export interface DreamAnalysisOptions {
   text: string;
   isPremium?: boolean;
+  [key: string]: unknown; // index signature
 }
 
 export interface DreamAnalysisData {
@@ -212,6 +213,7 @@ export interface BlackBoxAIOptions extends RequestConfig {
   webSearchMode?: boolean;
   /** Whether to enable memory/context */
   memoryEnabled?: boolean;
+  [key: string]: unknown;
 }
 
 /**
@@ -229,6 +231,7 @@ export interface ThreadsOptions extends RequestConfig {
   imagesOnly?: boolean;
   /** Whether to include only videos */
   videosOnly?: boolean;
+  [key: string]: unknown;
 }
 
 /**

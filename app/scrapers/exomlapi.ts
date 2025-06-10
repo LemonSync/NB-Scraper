@@ -151,7 +151,7 @@ export async function generateExomlResponse(
       headers: {
         'Content-Type': 'application/json'
       },
-      body
+      data: body
     });
 
     // Parse response (parsing might be imperfect)

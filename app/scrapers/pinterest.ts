@@ -4,7 +4,7 @@
  * @version 1.0.0
  */
 
-import { NBScraperResponse, PinterestData, ScraperErrorType } from '../types';
+import { NBScraperResponse, PinterestData, ScraperErrorType, RequestConfig } from '../types';
 import { 
   createErrorResponse, 
   createSuccessResponse, 

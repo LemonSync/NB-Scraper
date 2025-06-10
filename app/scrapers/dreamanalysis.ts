@@ -64,7 +64,7 @@ export async function analyzeDream(
         'Host': 'safe-coast-53976-cd772af9b056.herokuapp.com',
         'User-Agent': 'okhttp/4.9.2'
       },
-      body: JSON.stringify({ text, isPremium })
+      data: JSON.stringify({ text, isPremium })
     });
     
     return createSuccessResponse < DreamAnalysisData > (response.data);
