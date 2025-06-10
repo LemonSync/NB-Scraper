@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/nb-scraper.svg)](https://badge.fury.io/js/nb-scraper)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://github.com/nb-team/nb-scraper/workflows/CI/badge.svg)](https://github.com/nb-team/nb-scraper/actions)
+[![Build Status](https://github.com/chakszzz/nb-scraper/workflows/CI/badge.svg)](https://github.com/chakszzz/nb-scraper/actions)
 
 A comprehensive TypeScript scraper library by **NB Team** that provides easy-to-use functions for scraping various online services and APIs. Built with type safety, robust error handling, and maintainability in mind.
 
@@ -166,7 +166,7 @@ interface NBScraperResponse<T> {
 ### Setup
 
 ```bash
-git clone https://github.com/nb-team/nb-scraper.git
+git clone https://github.com/chakszzz/nb-scraper.git
 cd nb-scraper
 npm install
 ```
@@ -204,7 +204,7 @@ npm run docs:serve     # Serve documentation locally
 
 ## 📖 API Documentation
 
-Complete API documentation is available at: [https://nb-team.github.io/nb-scraper](https://nb-team.github.io/nb-scraper)
+Complete API documentation is available at: [https://chakszzz.github.io/nb-scraper](https://chakszzz.github.io/nb-scraper)
 
 ## 🛡️ Error Handling
 
@@ -278,17 +278,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- [GitHub Repository](https://github.com/nb-team/nb-scraper)
+- [GitHub Repository](https://github.com/chakszzz/nb-scraper)
 - [npm Package](https://www.npmjs.com/package/nb-scraper)
-- [Documentation](https://nb-team.github.io/nb-scraper)
-- [Issues](https://github.com/nb-team/nb-scraper/issues)
+- [Documentation](https://chakszzz.github.io/nb-scraper)
+- [Issues](https://github.com/chakszzz/nb-scraper/issues)
 
 ## 📊 Stats
 
 ![npm](https://img.shields.io/npm/dw/nb-scraper)
-![GitHub stars](https://img.shields.io/github/stars/nb-team/nb-scraper)
-![GitHub issues](https://img.shields.io/github/issues/nb-team/nb-scraper)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/nb-team/nb-scraper)
+![GitHub stars](https://img.shields.io/github/stars/chakszzz/nb-scraper)
+![GitHub issues](https://img.shields.io/github/issues/chakszzz/nb-scraper)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/chakszzz/nb-scraper)
 
 ---
 
