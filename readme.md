@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/nb-scraper.svg)](https://badge.fury.io/js/nb-scraper)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://typescriptlang.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 [![Build Status](https://github.com/chakszzz/nb-scraper/workflows/CI/badge.svg)](https://github.com/chakszzz/nb-scraper/actions)
 
 A comprehensive TypeScript scraper library by **NB Team** that provides easy-to-use functions for scraping various online services and APIs. Built with type safety, robust error handling, and maintainability in mind.
