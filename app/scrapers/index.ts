@@ -1,7 +1,8 @@
 /**
- * @fileoverview Scrapers module exports
- * @author ErRickow
- * @version 1.1.0
+ * Scrapers module exports
+ * 
+ * @module Scrapers
+ * @since 1.1.0
  */
 
 export { blackboxAi } from './blackbox';

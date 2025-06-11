@@ -1,30 +1,8 @@
 /**
- * @fileoverview NB Scraper - Community scraper library by Er Rickow 
- * @author ErRickow
- * @version 1.1.0
- * @license The Unlicense
+ * NB Scraper - Community scraper library by Er Rickow
  * 
- * @description
- * A comprehensive TypeScript scraper library that provides easy-to-use functions
- * for scraping various online services and APIs. Built with type safety,
- * error handling, and maintainability in mind.
- * 
- * @example
- * ```typescript
- * import { blackboxAi, threads } from 'nb-scraper';
- * 
- * // Scrape BlackBox AI
- * const aiResult = await blackboxAi('What is TypeScript?');
- * if (aiResult.status) {
- *   console.log(aiResult.data.response);
- * }
- * 
- * // Scrape Threads media
- * const mediaResult = await threads('https://www.threads.net/@user/post/123');
- * if (mediaResult.status) {
- *   console.log(mediaResult.data.image_urls);
- * }
- * ```
+ * @packageDocumentation
+ * @since 1.1.0
  */
 
 // Export all scrapers
