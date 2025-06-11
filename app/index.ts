@@ -52,6 +52,12 @@ export type {
 	SoundCloudCache,
 	DreamAnalysisOptions,
 	DreamAnalysisData,
+  DeepInfraAIData,
+  DeepInfraAIOptions,
+  DeepInfraAIMessage,
+  DeepInfraAIModel,
+  DeepInfraAIRequest,
+  DeepInfraAIResponse,
 	ThreadsMediaData,
 	ThreadsOptions,
 	PinterestData

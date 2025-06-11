@@ -11,15 +11,19 @@
  * @version 1.0.0
  */
 
-import { 
+import {
   NBScraperResponse,
   DeepInfraAIData,
   DeepInfraAIOptions,
+  DeepInfraAIMessage,
+  DeepInfraAIModel,
+  DeepInfraAIRequest,
+  DeepInfraAIResponse,
   ScraperErrorType
 } from '../types';
-import { 
-  createErrorResponse, 
-  createSuccessResponse, 
+import {
+  createErrorResponse,
+  createSuccessResponse,
   makeRequest,
   validateRequiredParams
 } from '../utils';
@@ -31,9 +35,10 @@ const BASE_URL = 'https://ai-sdk-starter-deepinfra.vercel.app/api/chat';
  */
 export const DEEPINFRA_MODELS = [
   'meta-llama/Llama-3.3-70B-Instruct-Turbo',
-  'deepseek-ai/DeepSeek-R1', 
+  'deepseek-ai/DeepSeek-R1',
   'Qwen/Qwen2.5-72B-Instruct'
-] as const;
+] as
+const;
 
 /**
  * Generate AI response using DeepInfra
@@ -57,12 +62,13 @@ export const DEEPINFRA_MODELS = [
  */
 export async function generateDeepInfraResponse(
   options: DeepInfraAIOptions
-): Promise<NBScraperResponse<DeepInfraAIData>> {
+): Promise < NBScraperResponse < DeepInfraAIData >> {
   try {
     validateRequiredParams(options, ['prompt']);
-
-    const { prompt, model = 'meta-llama/Llama-3.3-70B-Instruct-Turbo' } = options;
-
+    
+    const { prompt, model = 'meta-llama/Llama-3.3-70B-Instruct-Turbo' } =
+    options;
+    
     const body = {
       id: Math.random().toString(36).slice(2),
       selectedModel: model,
@@ -72,8 +78,8 @@ export async function generateDeepInfraResponse(
         parts: [{ type: 'text', text: prompt }]
       }]
     };
-
-    const response = await makeRequest({
+    
+    const response = await makeRequest < DeepInfraResponse > ({
       url: BASE_URL,
       method: 'POST',
       headers: {
@@ -81,31 +87,33 @@ export async function generateDeepInfraResponse(
       },
       data: body
     });
-
+    
     // Process response parts
     const parts: string[] = [];
     const responseData = response.data;
-
-    if (typeof responseData === 'object') {
-      if (responseData?.g) {
-        parts.push(...(Array.isArray(responseData.g) ? responseData.g : [responseData.g]));
+    
+    if (responseData && typeof responseData === 'object') {
+      const data = responseData as DeepInfraResponse;
+      
+      if (data.g) {
+        parts.push(...(Array.isArray(data.g) ? data.g : [data.g]));
       }
-      if (responseData?.f) {
-        parts.push(...(Array.isArray(responseData.f) ? responseData.f : [responseData.f]));
+      if (data.f) {
+        parts.push(...(Array.isArray(data.f) ? data.f : [data.f]));
       }
-      if (responseData?.['0']) {
-        parts.push(...(Array.isArray(responseData['0']) ? responseData['0'] : [responseData['0']]));
+      if (data['0']) {
+        parts.push(...(Array.isArray(data['0']) ? data['0'] : [data['0']]));
       }
     } else if (typeof responseData === 'string') {
       parts.push(responseData);
     }
-
+    
     const result = parts.join('').trim() || 'No response generated';
-
-    return createSuccessResponse<DeepInfraAIData>({
+    
+    return createSuccessResponse < DeepInfraAIData > ({
       response: result
     });
-
+    
   } catch (error) {
     return createErrorResponse(error as Error, {
       type: ScraperErrorType.API_ERROR,

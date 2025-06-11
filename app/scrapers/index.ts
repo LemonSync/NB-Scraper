@@ -11,6 +11,7 @@ export { createExomlMessage, generateExomlResponse  } from './exomlapi';
 export { analyzeDream, quickDreamAnalysis, premiumDreamAnalysis } from './dreamanalysis';
 export { generatePollinationsImage, getPollinationsDirectUrl } from './pollinations';
 export { searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud';
+export { generateDeepInfraResponse } from './deepinfra';
 
 // Re-export types for convenience
 export type {
@@ -29,6 +30,12 @@ export type {
   SoundCloudCache,
   DreamAnalysisOptions,
   DreamAnalysisData,
+  DeepInfraAIData,
+  DeepInfraAIOptions,
+  DeepInfraAIMessage,
+  DeepInfraAIModel,
+  DeepInfraAIRequest,
+  DeepInfraAIResponse,
   ThreadsMediaData,
   ThreadsOptions,
   PinterestData
