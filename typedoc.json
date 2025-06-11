@@ -7,7 +7,7 @@
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeExternals": true,
-  "readme": "README.md",
+  "readme": "readme.md",
   "categorizeByGroup": true,
   "defaultCategory": "Other",
   "categoryOrder": [
@@ -24,7 +24,7 @@
     "Enum",
     "Class",
     "Interface",
-    "Type alias",
+    "TypeAlias",
     "Constructor",
     "Property",
     "Variable",
