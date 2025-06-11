@@ -36,7 +36,6 @@
     "includeCategories": true,
     "includeGroups": true
   },
-  "customCss": "./docs-theme/custom.css",
   "plugin": ["typedoc-plugin-markdown"],
   "githubPages": true,
   "hideGenerator": true,
