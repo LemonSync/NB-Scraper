@@ -112,7 +112,7 @@ export interface SoundCloudTrack {
   like_count: string;
   download_count: string;
   play_count: string;
-  release_date: string;
+  release_date: string | null;
 }
 
 export interface SoundCloudApiResponse {
@@ -159,7 +159,7 @@ export interface ExomlAPIMessage {
   content: string;
 }
 
-export interface ExomlAPIOptions {
+export interface ExomlAPIOptions extends Record<string, unknown> {
   messages: ExomlAPIMessage[];
   systemPrompt?: string;
   model?: string;
@@ -187,7 +187,7 @@ export interface CharSetOptions {
 /**
  * DeepInfra AI Chat Types
  */
-export interface DeepInfraAIOptions {
+export interface DeepInfraAIOptions extends Record<string, unknown> {
   prompt: string;
   model?: DeepInfraAIModel;
 }

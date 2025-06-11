@@ -3,7 +3,7 @@
  * @author NB Team
  */
 
-import { blackboxAi } from '../src/scrapers/blackbox';
+import { blackboxAi } from './blackbox';
 
 describe('BlackBox AI Scraper', () => {
   describe('Input Validation', () => {
