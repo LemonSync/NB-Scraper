@@ -102,21 +102,38 @@ export interface PinterestData {
 export interface SoundCloudTrack {
   id: number;
   title: string;
+  url: string;
+  duration: string;
+  thumbnail: string;
+  author: {
+    name: string;
+    url: string;
+  };
+  like_count: string;
+  download_count: string;
+  play_count: string;
+  release_date: string;
+}
+
+export interface SoundCloudApiResponse {
+  collection: SoundCloudApiTrack[];
+}
+
+export interface SoundCloudApiTrack {
+  id: number;
+  title: string;
   permalink_url: string;
-  full_duration: number;
-  artwork_url: string | null;
+  duration: number;
+  artwork_url: string;
   user: {
     username: string;
     permalink_url: string;
   };
-  likes_count ? : number;
-  download_count ? : number;
-  playback_count ? : number;
-  release_date ? : string | null;
-  created_at ? : string;
-  high_quality ? : boolean;
-  downloadable ? : boolean;
-  original_content_size ? : number;
+  likes_count: number;
+  download_count: number;
+  playback_count: number;
+  created_at: string;
+  release_date ? : string;
 }
 
 export interface SoundCloudSearchOptions {
@@ -158,6 +175,56 @@ export interface ExomlAPIRandomData {
   chatId: string;
   userId: string;
   antiBotId: string;
+}
+
+export interface CharSetOptions {
+  lowerCase ? : boolean;
+  upperCase ? : boolean;
+  symbol ? : boolean;
+  number ? : boolean;
+}
+
+/**
+ * DeepInfra AI Chat Types
+ */
+export interface DeepInfraAIOptions {
+  prompt: string;
+  model?: DeepInfraAIModel;
+}
+
+export type DeepInfraAIModel = 
+  | 'meta-llama/Llama-3.3-70B-Instruct-Turbo'
+  | 'deepseek-ai/DeepSeek-R1'
+  | 'Qwen/Qwen2.5-72B-Instruct'
+  | string; // Allow custom models
+
+export interface DeepInfraAIMessage {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  parts: Array<{
+    type: 'text' | string;
+    text: string;
+  }>;
+}
+
+export interface DeepInfraAIRequest {
+  id: string;
+  selectedModel: DeepInfraAIModel;
+  messages: DeepInfraAIMessage[];
+}
+
+export interface DeepInfraAIResponse {
+  /** Generated text */
+  g?: string | string[];
+  /** Follow-up text */
+  f?: string | string[];
+  /** Primary response */
+  '0'?: string | string[];
+  [key: string]: unknown; // Allow other properties
+}
+
+export interface DeepInfraAIData {
+  response: string;
 }
 
 /**

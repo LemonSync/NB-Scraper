@@ -16,6 +16,7 @@
 
 import { 
   NBScraperResponse,
+  CharSetOptions,
   ExomlAPIData,
   ExomlAPIOptions,
   ExomlAPIMessage,
@@ -49,17 +50,23 @@ export const EXOML_MODELS = [
  * Generate random IDs for API request
  */
 function generateRandomIds(): ExomlAPIRandomData {
-  const gen = (length: number, charSet: unknown = {}): string => {
+  const gen = (length: number, charSet: CharSetOptions = {}): string => {
     const l = "abcdefghijklmnopqrstuvwxyz";
     const u = l.toUpperCase();
     const s = "-_";
     const n = "0123456789";
 
-    let cs = "";
-    const { lowerCase = false, upperCase = false, symbol = false, number = false } = charSet;
+    const { 
+      lowerCase = false, 
+      upperCase = false, 
+      symbol = false, 
+      number = false 
+    } = charSet;
 
+    // Build character set based on options
+    let cs = "";
     if (!lowerCase && !upperCase && !symbol && !number) {
-      cs += l + u + s + n;
+      cs = l + u + s + n; // Default: include everything
     } else {
       if (lowerCase) cs += l;
       if (upperCase) cs += u;
@@ -67,13 +74,17 @@ function generateRandomIds(): ExomlAPIRandomData {
       if (number) cs += n;
     }
 
-    const result = Array.from({ length }, () => cs[Math.floor(Math.random() * cs.length)]).join("") || "";
-    return result;
+    // Generate random string
+    return Array.from({ length }, () => 
+      cs[Math.floor(Math.random() * cs.length)]
+    ).join("");
   };
 
+  // Generate IDs with specific character sets
   const id = gen(16, { upperCase: true, lowerCase: true, number: true });
-  const chatId = `chat-${new Date().getTime()}-${gen(9, { lowerCase: true, number: true })}`;
-  const userId = `local-user-${new Date().getTime()}-${gen(9, { lowerCase: true, number: true })}`;
+  const timestamp = new Date().getTime();
+  const chatId = `chat-${timestamp}-${gen(9, { lowerCase: true, number: true })}`;
+  const userId = `local-user-${timestamp}-${gen(9, { lowerCase: true, number: true })}`;
   const antiBotId = `${gen(32)}-${gen(8, { number: true, lowerCase: true })}`;
   
   return { id, chatId, userId, antiBotId };

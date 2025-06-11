@@ -67,7 +67,16 @@ export async function analyzeDream(
       data: JSON.stringify({ text, isPremium })
     });
     
-    return createSuccessResponse < DreamAnalysisData > (response.data);
+    const rawResponse = response.data;
+    const parsedData = parseBlackBoxResponse(rawResponse);
+    
+    if (!parsedData) {
+      return createErrorResponse('Failed to parse Dream response', {
+        rawResponse: rawResponse.substring(0, 100) + '...'
+      });
+    }
+    
+    return createSuccessResponse < DreamAnalysisData > (parsedData);
   } catch (error) {
     return createErrorResponse(error as Error, {
       type: ScraperErrorType.API_ERROR,

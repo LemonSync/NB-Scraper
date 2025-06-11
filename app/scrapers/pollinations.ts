@@ -8,9 +8,10 @@
  * - No logo option available
  * 
  * @author NB Team
- * @version 1.0.0
+ * @version 1.0.1
  */
 
+import { Readable } from 'stream';
 import FormData from 'form-data';
 import fs from 'fs';
 import path from 'path';
@@ -59,26 +60,29 @@ export async function generatePollinationsImage(
     validateRequiredParams(options, ['prompt']);
 
     const { prompt, nologo = true } = options;
-
-    // Encode prompt for URL
     const encodedPrompt = encodeURIComponent(prompt);
     const imageUrl = `${BASE_URL}${encodedPrompt}${nologo ? '?nologo=true' : ''}`;
+    const tempPath = path.join(os.tmpdir(), `pollinations_${Date.now()}.jpg`);
 
     // Download image to temporary file
-    const response = await makeRequest({
+    const response = await makeRequest<ArrayBuffer>({
       url: imageUrl,
-      responseType: 'stream'
+      responseType: 'arraybuffer'
     });
 
-    const tempPath = path.join(os.tmpdir(), `pollinations_${Date.now()}.jpg`);
+    // Create stream from buffer and write to file
+    const buffer = Buffer.from(response.data);
+    const readable = new Readable();
+    readable.push(buffer);
+    readable.push(null);
+
     const writer = fs.createWriteStream(tempPath);
-    
-    response.data.pipe(writer);
+    readable.pipe(writer);
 
     // Wait for download to complete
-    await new Promise((resolve, reject) => {
-      writer.on('finish', resolve);
-      writer.on('error', reject);
+    await new Promise<void>((resolve, reject) => {
+      writer.on('finish', () => resolve());
+      writer.on('error', (err) => reject(err));
     });
 
     // Upload to Catbox.moe
@@ -86,7 +90,7 @@ export async function generatePollinationsImage(
     form.append('reqtype', 'fileupload');
     form.append('fileToUpload', fs.createReadStream(tempPath));
 
-    const upload = await makeRequest({
+    const upload = await makeRequest<string>({
       method: 'POST',
       url: UPLOAD_URL,
       data: form,
@@ -95,6 +99,10 @@ export async function generatePollinationsImage(
 
     // Clean up temporary file
     fs.unlinkSync(tempPath);
+
+    if (typeof upload.data !== 'string') {
+      throw new Error('Invalid upload response');
+    }
 
     return createSuccessResponse<PollinationsData>({
       url: upload.data,
