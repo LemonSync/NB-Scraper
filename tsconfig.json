@@ -1,32 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es2021",
-    "module": "CommonJS",
-    "lib": ["es2021"],
-    "outDir": "./dist",
-    "rootDir": "./app",
+    "target": "ES2021",
+    "lib": ["ES2021"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
-    "moduleResolution": "node"
+    "rootDir": "./app",
+    "composite": true
   },
-  "include": [
-    "app/**/*"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test.ts"
-  ]
+  "include": ["app/**/*"],
+  "exclude": ["node_modules", "dist"]
 }

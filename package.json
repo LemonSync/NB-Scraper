@@ -18,10 +18,10 @@
     "LICENSE"
   ],
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && npm run build:types",
-    "build:cjs": "tsc --project tsconfig.cjs.json",
-    "build:esm": "tsc --project tsconfig.esm.json && mv dist/esm/index.js dist/index.mjs",
-    "build:types": "tsc --project tsconfig.types.json",
+    "build": "npm run clean && npm run build:types && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p tsconfig.esm.json && mv dist/esm/index.js dist/index.mjs",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:types": "tsc -p tsconfig.types.json",
     "dev": "tsx watch app/index.ts",
     "test": "jest",
     "lint": "eslint app/**/*.ts",
