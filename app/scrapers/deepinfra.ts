@@ -79,7 +79,7 @@ export async function generateDeepInfraResponse(
       }]
     };
     
-    const response = await makeRequest < DeepInfraResponse > ({
+    const response = await makeRequest < DeepInfraAIResponse > ({
       url: BASE_URL,
       method: 'POST',
       headers: {
@@ -93,7 +93,7 @@ export async function generateDeepInfraResponse(
     const responseData = response.data;
     
     if (responseData && typeof responseData === 'object') {
-      const data = responseData as DeepInfraResponse;
+      const data = responseData as DeepInfraAIResponse;
       
       if (data.g) {
         parts.push(...(Array.isArray(data.g) ? data.g : [data.g]));

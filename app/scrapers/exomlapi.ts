@@ -179,7 +179,7 @@ export async function generateExomlResponse(
     }
     
     // Parse response (parsing might be imperfect)
-    const data = response.data;
+    const data = response.data as string;
     const content = [...data.matchAll(/^0:"(.*?)"$/gm)]
       .map(v => v[1])
       .join("")
