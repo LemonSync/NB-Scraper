@@ -81,6 +81,10 @@ async function getClientID(): Promise < string | null > {
       method: 'GET'
     });
     
+    if (typeof response.data !== 'string') {
+      throw new Error('invalid html data')
+    }
+    
     const html = response.data;
     const version = html.match(
       /<script>window\.__sc_version="(\d{10})"<\/script>/)?.[1];
@@ -98,6 +102,10 @@ async function getClientID(): Promise < string | null > {
         url: scriptUrl,
         method: 'GET'
       });
+      
+      if (typeof js !== 'string') {
+        continue;
+      }
       
       const idMatch = js.match(/client_id:"([a-zA-Z0-9]{32})"/);
       if (idMatch) {
@@ -137,10 +145,13 @@ async function getClientID(): Promise < string | null > {
 export async function searchSoundCloud(
   options: SoundCloudSearchOptions
 ): Promise < NBScraperResponse < SoundCloudData >> {
+  
+  const { query, limit = 3 } = options;
+  let clientId: string | null = null;
+  
   try {
     validateRequiredParams(options, ['query']);
     
-    const { query, limit = 3 } = options;
     const clientId = await getClientID();
     
     if (!clientId) {
@@ -197,7 +208,7 @@ export async function searchSoundCloud(
   } catch (error) {
     return createErrorResponse(error as Error, {
       type: ScraperErrorType.API_ERROR,
-      context: { service: 'SoundCloud', query, clientId: clientId ? '*****' : 'null' }
+      context: { service: 'SoundCloud', query: query, clientId: clientId ? '*****' : 'null' }
     });
   }
 }

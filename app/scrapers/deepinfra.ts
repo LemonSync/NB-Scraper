@@ -73,7 +73,7 @@ export async function generateDeepInfraResponse(
       }]
     };
 
-    const response = await makeRequest<DeepInfraAIResponse>({
+    const response = await makeRequest({
       url: BASE_URL,
       method: 'POST',
       headers: {
