@@ -118,11 +118,11 @@ Common error types:
 
 ## 📄 License
 
-This project is licensed under the The UnlicenseLicense - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the Unlicense – see the [LICENSE](LICENSE) file for details.
 
 ## Resource
 
-**NB Scraper is desaign to work for easy to use**
+This project is designed to be easy to use.
 
 ## 🔗 Links
 - [npm Package](https://www.npmjs.com/package/nb-scraper)
