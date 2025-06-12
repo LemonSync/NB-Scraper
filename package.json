@@ -1,10 +1,10 @@
 {
   "name": "nb-scraper",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Community scraper library by Newbie Scrape",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -41,7 +41,7 @@
     "api"
   ],
   "author": "NB Team",
-  "license": "MIT",
+  "license": "Unlicense",
   "repository": {
     "type": "git",
     "url": "https://github.com/Chakszzz/NB-Scraper"
