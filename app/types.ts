@@ -1,7 +1,7 @@
 /**
  * @fileoverview Type definitions for NB Scraper
  * @author ErRickow
- * @version 1.0.0
+ * @version 1.1.0
  */
 
 /**
@@ -23,134 +23,10 @@ export interface NBScraperResponse<T = unknown> {
  * Configuration options for HTTP requests
  */
 export interface RequestConfig {
-  /** Request timeout in milliseconds */
-  timeout?: number;
-  /** Custom headers to include in the request */
-  headers?: Record<string, string>;
-  /** Maximum number of retry attempts */
-  retries?: number;
-  /** Delay between retry attempts in milliseconds */
-  retryDelay?: number;
-}
-
-/**
- * BlackBox AI response data structure
- */
-export interface BlackBoxAIData {
-  /** The AI's response text */
-  response: string;
-  /** Array of sources used by the AI */
-  source: BlackBoxSource[];
-}
-
-/**
- * Source information from BlackBox AI
- */
-export interface BlackBoxSource {
-  /** URL of the source */
-  link: string;
-  /** Title of the source */
-  title: string;
-  /** Text snippet from the source */
-  snippet: string;
-  /** Position/ranking of the source */
-  position: number;
-}
-
-// ExomlAPI Types
-export interface ExomlAPIMessage {
-	role: "user" | "assistant" | "system";
-	content: string;
-}
-
-export interface ExomlAPIOptions {
-	messages: ExomlAPIMessage[];
-	systemPrompt ? : string;
-	model ? : string;
-}
-
-export interface ExomlAPIResponse {
-	content: string;
-}
-
-export interface ExomlAPIRandomData {
-	id: string;
-	chatId: string;
-	userId: string;
-	antiBotId: string;
-}
-
-// Pollinations Types
-export interface PollinationsOptions {
-	prompt: string;
-	nologo ? : boolean;
-}
-
-export interface PollinationsResponse {
-	url: string;
-}
-
-// DreamAnalysis Types
-export interface DreamAnalysisOptions {
-	text: string;
-	isPremium ? : boolean;
-}
-
-export interface DreamAnalysisResponse {
-	analysis ? : string;
-	interpretation ? : string;
-	symbols ? : unknown[];
-	emotions ? : string[];
-	themes ? : string[];
-	[key: string]: unknown; // For flexible response structure
-}
-
-export interface SoundCloudTrack {
-	id: number;
-	title: string;
-	url: string;
-	duration: string;
-	thumbnail: string | null;
-	author: {
-		name: string;
-		url: string;
-	};
-	like_count: string;
-	download_count: string;
-	play_count: string;
-	release_date: string | null;
-}
-
-export interface SoundCloudSearchOptions {
-	query: string;
-	limit ? : number;
-}
-
-export interface SoundCloudResponse {
-	tracks: SoundCloudTrack[];
-}
-
-export interface SoundCloudCache {
-	version: string;
-	id: string;
-}
-
-/**
- * Pinterest Scrape Types
- */
-export interface PinterestData {
-  /** Array of URLs */
-  result: string[];
-}
-
-/**
- * Threads media data structure
- */
-export interface ThreadsMediaData {
-  /** Array of image URLs */
-  image_urls: string[];
-  /** Array of video URLs */
-  video_urls: string[];
+	timeout ? : number | undefined;
+	headers ? : Record < string, string > | undefined;
+	retries ? : number | undefined;
+	retryDelay ? : number | undefined;
 }
 
 /**
@@ -160,6 +36,7 @@ export enum ScraperErrorType {
   /** Network-related errors (connection, timeout, etc.) */
   NETWORK_ERROR = 'NETWORK_ERROR',
   /** Invalid or malformed input parameters */
+  INVALID_PARAMETER = 'INVALID_PARAMETER',
   INVALID_INPUT = 'INVALID_INPUT',
   /** API returned an unexpected response format */
   INVALID_RESPONSE = 'INVALID_RESPONSE',
@@ -167,6 +44,14 @@ export enum ScraperErrorType {
   RATE_LIMITED = 'RATE_LIMITED',
   /** Service is temporarily unavailable */
   SERVICE_UNAVAILABLE = 'SERVICE_UNAVAILABLE',
+  /** Authentication or authorization failed */
+  AUTH_ERROR = 'AUTH_ERROR',
+  /** Error parsing response data */
+  PARSE_ERROR = 'PARSE_ERROR',
+  /** Error during image generation */
+  IMAGE_GENERATION_ERROR = 'IMAGE_GENERATION_ERROR',
+  /** Error calling external API */
+  API_ERROR = 'API_ERROR',
   /** Unknown or unexpected error */
   UNKNOWN_ERROR = 'UNKNOWN_ERROR'
 }
@@ -185,9 +70,207 @@ export interface ScraperError {
   context?: Record<string, unknown>;
 }
 
+/* ==================== Scraper-Specific Types ==================== */
+
 /**
- * Options for the BlackBox AI scraper
+ * Pollinations AI Image Generation Types
  */
+export interface PollinationsOptions {
+  prompt: string;
+  nologo ? : boolean;
+  [key: string]: unknown; // index signature
+}
+
+export interface PollinationsData {
+  /** URL of the generated image on Catbox.moe */
+  url: string;
+  /** Direct Pollinations image URL */
+  directUrl: string;
+}
+
+/**
+ * Pinterest Scraper Types
+ */
+export interface PinterestData {
+  /** Array of image URLs */
+  result: string[];
+}
+
+/**
+ * SoundCloud Scraper Types
+ */
+export interface SoundCloudTrack {
+  id: number;
+  title: string;
+  url: string;
+  duration: string;
+  thumbnail: string;
+  author: {
+    name: string;
+    url: string;
+  };
+  like_count: string;
+  download_count: string;
+  play_count: string;
+  release_date: string | null;
+}
+
+export interface SoundCloudApiResponse {
+  collection: SoundCloudApiTrack[];
+}
+
+export interface SoundCloudApiTrack {
+  id: number;
+  title: string;
+  permalink_url: string;
+  duration: number;
+  artwork_url: string;
+  user: {
+    username: string;
+    permalink_url: string;
+  };
+  likes_count: number;
+  download_count: number;
+  playback_count: number;
+  created_at: string;
+  release_date ? : string;
+}
+
+export interface SoundCloudSearchOptions {
+  query: string;
+  limit?: number;
+  [key: string]: unknown;
+}
+
+export interface SoundCloudData {
+  tracks: SoundCloudTrack[];
+}
+
+export interface SoundCloudCache {
+  version: string;
+  id: string;
+}
+
+/**
+ * ExomlAPI AI Text Completion Types
+ */
+export interface ExomlAPIMessage {
+  role: "user" | "assistant" | "system";
+  content: string;
+}
+
+export interface ExomlAPIOptions extends Record<string, unknown> {
+  messages: ExomlAPIMessage[];
+  systemPrompt?: string;
+  model?: string;
+
+}
+
+export interface ExomlAPIData {
+  content: string;
+}
+
+export interface ExomlAPIRandomData {
+  id: string;
+  chatId: string;
+  userId: string;
+  antiBotId: string;
+}
+
+export interface CharSetOptions {
+  lowerCase ? : boolean;
+  upperCase ? : boolean;
+  symbol ? : boolean;
+  number ? : boolean;
+}
+
+/**
+ * DeepInfra AI Chat Types
+ */
+export interface DeepInfraAIOptions extends Record<string, unknown> {
+  prompt: string;
+  model?: DeepInfraAIModel;
+}
+
+export type DeepInfraAIModel = 
+  | 'meta-llama/Llama-3.3-70B-Instruct-Turbo'
+  | 'deepseek-ai/DeepSeek-R1'
+  | 'Qwen/Qwen2.5-72B-Instruct'
+  | string; // Allow custom models
+
+export interface DeepInfraAIMessage {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  parts: Array<{
+    type: 'text' | string;
+    text: string;
+  }>;
+}
+
+export interface DeepInfraAIRequest {
+  id: string;
+  selectedModel: DeepInfraAIModel;
+  messages: DeepInfraAIMessage[];
+}
+
+export interface DeepInfraAIResponse {
+  /** Generated text */
+  g?: string | string[];
+  /** Follow-up text */
+  f?: string | string[];
+  /** Primary response */
+  '0'?: string | string[];
+  [key: string]: unknown; // Allow other properties
+}
+
+export interface DeepInfraAIData {
+  response: string;
+}
+
+/**
+ * DreamAnalysis Types
+ */
+export interface DreamAnalysisOptions {
+  text: string;
+  isPremium?: boolean;
+  [key: string]: unknown; // index signature
+}
+
+export interface DreamAnalysisData {
+  analysis?: string;
+  interpretation?: string;
+  symbols?: {
+    name: string;
+    meaning: string;
+    relevance: number;
+  }[];
+  emotions?: string[];
+  themes?: string[];
+  /** Additional metadata from analysis */
+  metadata?: Record<string, unknown>;
+}
+
+/**
+ * BlackBox AI Types
+ */
+export interface BlackBoxAIData {
+  /** The AI's response text */
+  response: string;
+  /** Array of sources used by the AI */
+  source: BlackBoxSource[];
+}
+
+export interface BlackBoxSource {
+  /** URL of the source */
+  link: string;
+  /** Title of the source */
+  title: string;
+  /** Text snippet from the source */
+  snippet: string;
+  /** Position/ranking of the source */
+  position: number;
+}
+
 export interface BlackBoxAIOptions extends RequestConfig {
   /** Maximum number of tokens in the response */
   maxTokens?: number;
@@ -197,16 +280,25 @@ export interface BlackBoxAIOptions extends RequestConfig {
   webSearchMode?: boolean;
   /** Whether to enable memory/context */
   memoryEnabled?: boolean;
+  [key: string]: unknown;
 }
 
 /**
- * Options for the Threads scraper
+ * Threads Scraper Types
  */
+export interface ThreadsMediaData {
+  /** Array of image URLs */
+  image_urls: string[];
+  /** Array of video URLs */
+  video_urls: string[];
+}
+
 export interface ThreadsOptions extends RequestConfig {
   /** Whether to include only images */
   imagesOnly?: boolean;
   /** Whether to include only videos */
   videosOnly?: boolean;
+  [key: string]: unknown;
 }
 
 /**

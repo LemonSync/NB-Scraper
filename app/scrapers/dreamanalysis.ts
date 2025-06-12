@@ -26,6 +26,24 @@ import {
 
 const BASE_URL = 'https://safe-coast-53976-cd772af9b056.herokuapp.com/';
 
+function parseDreamResponse(raw: unknown): DreamAnalysisData | null {
+  if (typeof raw !== 'string') return null;
+  
+  try {
+    const data = JSON.parse(raw);
+    return {
+      analysis: data.analysis,
+      interpretation: data.interpretation,
+      symbols: data.symbols || [],
+      emotions: data.emotions || [],
+      themes: data.themes || [],
+      metadata: data.metadata || {}
+    };
+  } catch {
+    return null;
+  }
+}
+
 /**
  * Analyze dream text and get interpretation
  * 
@@ -64,10 +82,34 @@ export async function analyzeDream(
         'Host': 'safe-coast-53976-cd772af9b056.herokuapp.com',
         'User-Agent': 'okhttp/4.9.2'
       },
-      body: JSON.stringify({ text, isPremium })
+      data: JSON.stringify({ text, isPremium })
     });
     
-    return createSuccessResponse < DreamAnalysisData > (response.data);
+    const rawResponse = response.data;
+    
+    // Type guard untuk rawResponse
+    if (typeof rawResponse !== 'string') {
+      return createErrorResponse('Invalid response format', {
+        type: ScraperErrorType.INVALID_RESPONSE,
+        context: {
+          service: 'DreamAnalysis',
+          rawResponse: String(rawResponse).substring(0, 100) + '...'
+        }
+      });
+    }
+    
+    const parsedData = parseDreamResponse(rawResponse);
+    
+    if (!parsedData) {
+      return createErrorResponse('Failed to parse Dream response', {
+        type: ScraperErrorType.PARSE_ERROR,
+        context: {
+          rawResponse: rawResponse.substring(0, 100) + '...'
+        }
+      });
+    }
+    
+    return createSuccessResponse < DreamAnalysisData > (parsedData);
   } catch (error) {
     return createErrorResponse(error as Error, {
       type: ScraperErrorType.API_ERROR,

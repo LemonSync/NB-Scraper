@@ -9,7 +9,6 @@ import {
   BlackBoxAIData, 
   BlackBoxAIOptions, 
   BlackBoxSource,
-  ScraperErrorType 
 } from '../types';
 import { 
   createErrorResponse, 
@@ -171,7 +170,7 @@ export async function blackboxAi(
     }
 
     // Parse response
-    const rawResponse = response.data as string;
+    const rawResponse = response.data;
     const parsedData = parseBlackBoxResponse(rawResponse);
 
     if (!parsedData) {
@@ -181,10 +180,9 @@ export async function blackboxAi(
     }
 
     return createSuccessResponse(parsedData);
-
   } catch (error) {
     return createErrorResponse(error as Error, { 
-      query: query?.substring(0, 100),
+      query: query.substring(0, 100),
       options: { ...options, headers: undefined } // Don't log headers for security
     });
   }

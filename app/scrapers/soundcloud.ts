@@ -12,17 +12,19 @@
  * @version 1.0.0
  */
 
-import { 
-  NBScraperResponse, 
-  SoundCloudData, 
+import {
+  NBScraperResponse,
+  SoundCloudData,
   SoundCloudSearchOptions,
   SoundCloudTrack,
   SoundCloudCache,
+  SoundCloudApiResponse,
+  SoundCloudApiTrack,
   ScraperErrorType
 } from '../types';
-import { 
-  createErrorResponse, 
-  createSuccessResponse, 
+import {
+  createErrorResponse,
+  createSuccessResponse,
   makeRequest,
   validateRequiredParams,
   formatBytes
@@ -72,28 +74,38 @@ function formatDate(dateStr: string | null): string | null {
  * Get SoundCloud client ID by parsing website
  * @returns Promise<string | null>
  */
-async function getClientID(): Promise<string | null> {
+async function getClientID(): Promise < string | null > {
   try {
     const response = await makeRequest({
       url: BASE_URL,
       method: 'GET'
     });
-
+    
+    if (typeof response.data !== 'string') {
+      throw new Error('invalid html data')
+    }
+    
     const html = response.data;
-    const version = html.match(/<script>window\.__sc_version="(\d{10})"<\/script>/)?.[1];
+    const version = html.match(
+      /<script>window\.__sc_version="(\d{10})"<\/script>/)?.[1];
     if (!version) return null;
-
+    
     // Return cached ID if version matches
     if (cache.version === version) return cache.id;
-
+    
     // Extract script URLs and find client_id
-    const scriptMatches = [...html.matchAll(/<script.*?src="(https:\/\/a-v2\.sndcdn\.com\/assets\/[^"]+)"/g)];
+    const scriptMatches = [...html.matchAll(
+      /<script.*?src="(https:\/\/a-v2\.sndcdn\.com\/assets\/[^"]+)"/g)];
     
     for (const [, scriptUrl] of scriptMatches) {
       const { data: js } = await makeRequest({
         url: scriptUrl,
         method: 'GET'
       });
+      
+      if (typeof js !== 'string') {
+        continue;
+      }
       
       const idMatch = js.match(/client_id:"([a-zA-Z0-9]{32})"/);
       if (idMatch) {
@@ -102,7 +114,9 @@ async function getClientID(): Promise<string | null> {
       }
     }
   } catch (error) {
-    throw new Error(`Failed to get client_id: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    throw new Error(
+      `Failed to get client_id: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
   }
   
   return null;
@@ -130,53 +144,71 @@ async function getClientID(): Promise<string | null> {
  */
 export async function searchSoundCloud(
   options: SoundCloudSearchOptions
-): Promise<NBScraperResponse<SoundCloudData>> {
+): Promise < NBScraperResponse < SoundCloudData >> {
+  
+  const { query, limit = 3 } = options;
+  let clientId: string | null = null;
+  
   try {
     validateRequiredParams(options, ['query']);
-
-    const { query, limit = 30 } = options;
+    
     const clientId = await getClientID();
-
+    
     if (!clientId) {
       return createErrorResponse('Failed to obtain client_id', {
         type: ScraperErrorType.AUTH_ERROR,
         context: { service: 'SoundCloud' }
       });
     }
-
-    const response = await makeRequest({
+    
+    const response = await makeRequest < SoundCloudApiResponse > ({
       url: API_URL,
       method: 'GET',
-      params: { 
-        q: query, 
-        client_id: clientId, 
-        limit 
+      params: {
+        q: query,
+        client_id: clientId,
+        limit
       }
     });
-
-    const tracks: SoundCloudTrack[] = response.data.collection.map((track: unknown) => ({
-      id: track.id,
-      title: track.title,
-      url: track.permalink_url,
-      duration: formatDuration(track.full_duration),
-      thumbnail: track.artwork_url,
-      author: {
-        name: track.user.username,
-        url: track.user.permalink_url
-      },
-      like_count: formatNumber(track.likes_count || 0),
-      download_count: formatNumber(track.download_count || 0),
-      play_count: formatNumber(track.playback_count || 0),
-      release_date: formatDate(track.release_date || track.created_at),
-      audio_quality: track.high_quality ? 'HQ' : 'SQ',
-      file_size: track.downloadable ? formatBytes(track.original_content_size || 0) : null
-    }));
-
-    return createSuccessResponse<SoundCloudData>({ tracks });
+    
+    if (!response.data?.collection) {
+      return createErrorResponse('Invalid SoundCloud API response', {
+        type: ScraperErrorType.INVALID_RESPONSE
+      });
+    }
+    
+    const tracks: SoundCloudTrack[] = response.data.collection.map(track => {
+      const durationMs = track.duration;
+      const duration = formatDuration(durationMs);
+      
+      const likeCount = formatNumber(track.likes_count);
+      const playCount = formatNumber(track.playback_count);
+      const downloadCount = formatNumber(track.download_count);
+      
+      const releaseDate = track.release_date || track.created_at;
+      
+      return {
+        id: track.id,
+        title: track.title,
+        url: track.permalink_url,
+        duration,
+        thumbnail: track.artwork_url,
+        author: {
+          name: track.user.username,
+          url: track.user.permalink_url
+        },
+        like_count: likeCount,
+        download_count: downloadCount,
+        play_count: playCount,
+        release_date: formatDate(releaseDate)
+      };
+    });
+    
+    return createSuccessResponse < SoundCloudData > ({ tracks });
   } catch (error) {
     return createErrorResponse(error as Error, {
       type: ScraperErrorType.API_ERROR,
-      context: { service: 'SoundCloud' }
+      context: { service: 'SoundCloud', query: query, clientId: clientId ? '*****' : 'null' }
     });
   }
 }
