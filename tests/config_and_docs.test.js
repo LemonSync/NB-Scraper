@@ -1,6 +1,6 @@
 const fs   = require('fs');
 const path = require('path');
-const Ajv   = require('ajv').default;
+const Ajv   = require('ajv');
 const yaml  = require('yaml');
 const glob  = require('glob');
 const markdownLinkCheck = require('../utils/markdownLinkCheck');
