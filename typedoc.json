@@ -4,7 +4,6 @@
   "theme": "default-modern",
   "name": "NB Scraper Documentation",
   "includeVersion": true,
-  "entryPointStrategy": "packages",
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeExternals": true,
