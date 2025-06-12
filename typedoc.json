@@ -41,7 +41,7 @@
   "plugin": [
     "typedoc-plugin-missing-exports",
     "typedoc-plugin-mdn-links",
-    "typedoc-theme-hierarchy"
+    "@appium/typedoc-plugin-appium"
   ],
   "githubPages": true,
   "hideGenerator": true,
