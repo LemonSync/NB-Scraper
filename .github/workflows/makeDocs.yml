@@ -33,7 +33,7 @@ jobs:
           typedoc@latest \
           typedoc-plugin-missing-exports@latest \
           typedoc-plugin-mdn-links@latest \
-          @typhonjs-typedoc/typedoc-theme-dmt@latest \
+          typedoc-theme-oxide@latest \
           --legacy-peer-deps
       - name: Generate docs
         run: npx typedoc
