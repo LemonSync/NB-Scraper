@@ -6,7 +6,7 @@
 
 import { blackboxAi } from '../scrapers/blackbox';
 import { NBScraperResponse, BlackBoxAIData } from '../types';
-import { mockAxiosResponse } from '../__mocks__/axios';
+import { mockAxiosResponse } from './__mocks__/axios';
 
 // Mock the utils functions
 jest.mock('../utils', () => ({
