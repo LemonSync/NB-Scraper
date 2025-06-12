@@ -1,7 +1,7 @@
 {
   "entryPoints": ["app/index.ts"],
   "out": "docs",
-  "theme": "default-modern",
+  "theme": "oxide",
   "name": "NB Scraper Documentation",
   "includeVersion": true,
   "excludePrivate": true,
@@ -40,11 +40,8 @@
   "plugin": [
     "typedoc-plugin-missing-exports",
     "typedoc-plugin-mdn-links",
-    "@typhonjs-typedoc/typedoc-theme-dmt"
+    "typedoc-theme-oxide"
   ],
-  "dmtSettings": {
-    "animation": true // When true theme animation is enabled.
-  },
   "githubPages": true,
   "hideGenerator": true,
   "searchInComments": true,
