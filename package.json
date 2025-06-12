@@ -44,10 +44,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chakszzz/nb-scraper"
+    "url": "https://github.com/Chakszzz/NB-Scraper"
   },
   "bugs": {
-    "url": "https://github.com/chakszzz/nb-scraper/issues"
+    "url": "https://github.com/Chakszzz/NB-Scraper/issues"
   },
   "homepage": "https://chakszzz.github.io/nb-scraper",
   "devDependencies": {
