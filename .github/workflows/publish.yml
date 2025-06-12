@@ -33,7 +33,7 @@ jobs:
         run: |
           if [ ! -f pnpm-lock.yaml ]; then
             echo "::warning::Lockfile tidak ada. Membuat yang baru..."
-            pnpm install --no-frozen-lockfile
+            pnpm install --lockfile-only
       
             git config --global user.email "hub@erdev.biz.id"
             git config --global user.name "ErBots"
@@ -43,7 +43,7 @@ jobs:
             git push
           fi
       
-          pnpm install --frozen-lockfile
+          pnpm install --no-frozen-lockfile
 
       - name: Validate package.json
         run: |
