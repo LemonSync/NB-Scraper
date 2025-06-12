@@ -1,10 +1,10 @@
 {
   "entryPoints": ["app/index.ts"],
   "out": "docs",
-  "theme": "hierarchy",
+  "theme": "appium",
   "name": "NB Scraper Documentation",
   "includeVersion": true,
-  "entryPointStrategy": "Expand",
+  "entryPointStrategy": "packages",
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeExternals": true,
