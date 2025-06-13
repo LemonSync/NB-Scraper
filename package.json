@@ -1,6 +1,6 @@
 {
   "name": "nb-scraper",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "Community scraper library by Newbie Scrape",
   "main": "dist/cjs/index.js",
   "module": "dist/index.mjs",
@@ -36,7 +36,9 @@
     "typescript",
     "nb-team",
     "community",
+    "downloader",
     "ai",
+    "scrape-resource",
     "social-media",
     "api"
   ],
@@ -49,8 +51,9 @@
   "bugs": {
     "url": "https://github.com/Chakszzz/NB-Scraper/issues"
   },
-  "homepage": "https://chakszzz.github.io/nb-scraper",
+  "homepage": "https://nb-scraper.js.org",
   "devDependencies": {
+    "@types/cheerio": "^0.22.32",
     "@types/jest": "^29.5.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
@@ -66,6 +69,7 @@
   "dependencies": {
     "axios": "^1.6.0",
     "path": "^0.12.7",
+    "cheerio": "^1.0.0-rc.12",
     "form-data": "latest",
     "fs": "latest"
   },

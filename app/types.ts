@@ -52,6 +52,8 @@ export enum ScraperErrorType {
   IMAGE_GENERATION_ERROR = 'IMAGE_GENERATION_ERROR',
   /** Error calling external API */
   API_ERROR = 'API_ERROR',
+  DOWNLOAD_ERROR = 'DOWNLOAD_ERROR',
+  QUALITY_NOT_AVAILABLE = 'QUALITY_NOT_AVAILABLE',
   /** Unknown or unexpected error */
   UNKNOWN_ERROR = 'UNKNOWN_ERROR'
 }

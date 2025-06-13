@@ -8,15 +8,14 @@
  * - Download episodes
  * 
  * @author Jul
- * @version 1.0.0
+ * @version 1.0.1
  */
 
 import axios from 'axios';
-import cheerio from 'cheerio';
+import cheerio, { Element } from 'cheerio';
 import { 
   NBScraperResponse,
   AnimeIndoSearchResult,
-  AnimeIndoAPI,
   AnimeIndoDetail,
   AnimeIndoDownloadInfo,
   AnimeIndoEpisode,
@@ -42,7 +41,7 @@ export const animeIndo = {
    *   console.log(result.data);
    * }
    * ```
-   * @author Jul
+   * 
    */
   async search(query: string): Promise<NBScraperResponse<AnimeIndoSearchResult[]>> {
     try {
@@ -54,7 +53,7 @@ export const animeIndo = {
       const $ = cheerio.load(response.data);
       const results: AnimeIndoSearchResult[] = [];
 
-      $("table.otable").each((_, el) => {
+      $("table.otable").each((_index: number, el: Element) => {
         const element = $(el);
         const title = element.find(".videsc a").text().trim();
         const link = BASE_URL + element.find(".videsc a").attr("href");
@@ -91,7 +90,6 @@ export const animeIndo = {
    *   console.log(result.data);
    * }
    * ```
-   * @author Jul
    */
   async detail(url: string): Promise<NBScraperResponse<AnimeIndoDetail>> {
     try {
@@ -108,14 +106,14 @@ export const animeIndo = {
       }
 
       const genres: string[] = [];
-      $(".detail li a").each((_, el) => {
+      $(".detail li a").each((_index: number, el: Element) => {
         genres.push($(el).text().trim());
       });
 
       const description = $(".detail p").text().trim();
 
       const episodes: AnimeIndoEpisode[] = [];
-      $(".ep a").each((_, el) => {
+      $(".ep a").each((_index: number, el: Element) => {
         let epLink = $(el).attr("href");
         if (epLink && epLink.startsWith("/")) {
           epLink = BASE_URL + epLink;
@@ -151,7 +149,6 @@ export const animeIndo = {
    *   console.log(result.data.downloadUrl);
    * }
    * ```
-   * @author Jul
    */
   async download(episodeUrl: string): Promise<NBScraperResponse<AnimeIndoDownloadInfo>> {
     try {
@@ -169,7 +166,7 @@ export const animeIndo = {
 
       // Extract video links
       const videoLinks: Array<{ label: string; videoUrl: string }> = [];
-      $('.servers a.server').each((_, el) => {
+      $('.servers a.server').each((_index: number, el: Element) => {
         const label = $(el).text().trim();
         let videoUrl = $(el).attr('data-video') || '';
         if (videoUrl.startsWith('//')) {
@@ -183,7 +180,13 @@ export const animeIndo = {
         v => v.label.toLowerCase().includes('gdrive') && v.label.toLowerCase().includes('hd')
       );
       if (!gdriveHdLinkObj) {
-        throw new Error('GDRIVE HD link not found');
+        return createErrorResponse('HD quality not available', {
+          type: ScraperErrorType.QUALITY_NOT_AVAILABLE,
+          context: { 
+            episodeUrl,
+            availableQualities: videoLinks.map(v => v.label) 
+          }
+        });
       }
 
       // Get GDrive embed page
@@ -222,10 +225,15 @@ export const animeIndo = {
 
       // Parse Drive API response (JSONP format)
       const jsonStr = driveResponse.data.slice(4);
-      const json = JSON.parse(jsonStr);
+      interface GDriveResponse {
+        downloadUrl?: string;
+        fileName?: string;
+        sizeBytes?: string;
+      }
+      const json: GDriveResponse = JSON.parse(jsonStr);
 
-      if (!json.downloadUrl) {
-        throw new Error('Download URL limit or not found');
+      if (!json.downloadUrl || !json.fileName || !json.sizeBytes) {
+        throw new Error('Invalid Google Drive response');
       }
 
       // Get file info
