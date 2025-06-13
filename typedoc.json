@@ -8,7 +8,7 @@
   "excludeProtected": true,
   "excludeExternals": true,
   "tsconfig": "./tsconfig.json",
-  "readme": "none",
+  "readme": "readme.md",
   "categorizeByGroup": true,
   "defaultCategory": "Other",
   "categoryOrder": [
