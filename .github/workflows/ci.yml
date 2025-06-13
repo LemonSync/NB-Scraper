@@ -51,6 +51,8 @@ jobs:
           git push
         fi
         
+        npm i
+        
         npm ci
  
     - name: Run linter
