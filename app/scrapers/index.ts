@@ -13,7 +13,7 @@ export { analyzeDream, quickDreamAnalysis, premiumDreamAnalysis } from './dreama
 export { generatePollinationsImage, getPollinationsDirectUrl } from './pollinations';
 export { searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud';
 export { generateDeepInfraResponse } from './deepinfra';
-export { animeIndo } from './animeindo';
+export * from './animeindo';
 
 // Re-export types for convenience
 export type {
