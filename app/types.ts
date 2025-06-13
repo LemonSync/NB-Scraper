@@ -301,6 +301,65 @@ export interface ThreadsOptions extends RequestConfig {
   [key: string]: unknown;
 }
 
+export interface AnimeIndoSearchResult {
+  title: string;
+  link: string;
+  image: string;
+  year: string;
+  description: string;
+  rating?: string;
+  status?: string;
+}
+
+export interface AnimeIndoEpisode {
+  episode: string;
+  link: string;
+  date?: string;
+  downloadLinks?: {
+    server: string;
+    url: string;
+  }[];
+}
+
+export interface AnimeIndoDetail {
+  title: string;
+  image: string;
+  genres: string[];
+  description: string;
+  episodes: AnimeIndoEpisode[];
+  rating?: string;
+  status?: string;
+  duration?: string;
+  studio?: string;
+}
+
+export interface AnimeIndoDownloadInfo {
+  title: string;
+  description: string;
+  videoLinks: Array<{
+    label: string;
+    videoUrl: string;
+    quality?: string;
+  }>;
+  gdriveHdLink: string;
+  downloadUrl: string;
+  fileName: string;
+  fileSize: string;
+  mimetype: string;
+  thumbnail?: string;
+  duration?: string;
+  subtitles?: {
+    language: string;
+    url: string;
+  }[];
+}
+
+export interface AnimeIndoAPI {
+  search(query: string): Promise<NBScraperResponse<AnimeIndoSearchResult[]>>;
+  detail(url: string): Promise<NBScraperResponse<AnimeIndoDetail>>;
+  download(episodeUrl: string): Promise<NBScraperResponse<AnimeIndoDownloadInfo>>;
+}
+
 /**
  * Global configuration for the scraper library
  */
