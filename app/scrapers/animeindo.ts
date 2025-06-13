@@ -12,6 +12,7 @@
  */
 
 import axios from 'axios';
+import { URL } from 'url';
 import * as cheerio from 'cheerio';
 import {
   NBScraperResponse,
@@ -197,8 +198,13 @@ export const animeIndo = {
       const $$ = cheerio.load(gdriveHtml);
       const gdriveRawLink = $$('#subtitlez').text().trim();
 
-      if (!gdriveRawLink || !gdriveRawLink.includes('drive.google.com')) {
+      if (!gdriveRawLink) {
         throw new Error('Google Drive raw link not found in embed page');
+      }
+      const parsedUrl = new URL(gdriveRawLink);
+      const allowedHosts = ['drive.google.com'];
+      if (!allowedHosts.includes(parsedUrl.host)) {
+        throw new Error('Invalid host for Google Drive raw link');
       }
 
       // Extract file ID
