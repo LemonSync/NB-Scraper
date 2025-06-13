@@ -11,12 +11,9 @@
  * @version 1.0.1
  */
 
--import axios from 'axios';
--import cheerio, { Element } from 'cheerio';
-+import * as cheerio from 'cheerio';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
 import {
-  // …
-}
   NBScraperResponse,
   AnimeIndoSearchResult,
   AnimeIndoDetail,
@@ -56,7 +53,7 @@ export const animeIndo = {
       const $ = cheerio.load(response.data);
       const results: AnimeIndoSearchResult[] = [];
 
-      $("table.otable").each((_index: number, el: Element) => {
+      $("table.otable").each((_index: number, el: cheerio.Element) => {
         const element = $(el);
         const title = element.find(".videsc a").text().trim();
         const link = BASE_URL + element.find(".videsc a").attr("href");
@@ -109,14 +106,14 @@ export const animeIndo = {
       }
 
       const genres: string[] = [];
-      $(".detail li a").each((_index: number, el: Element) => {
+      $(".detail li a").each((_index: number, el: cheerio.Element) => {
         genres.push($(el).text().trim());
       });
 
       const description = $(".detail p").text().trim();
 
       const episodes: AnimeIndoEpisode[] = [];
-      $(".ep a").each((_index: number, el: Element) => {
+      $(".ep a").each((_index: number, el: cheerio.Element) => {
         let epLink = $(el).attr("href");
         if (epLink && epLink.startsWith("/")) {
           epLink = BASE_URL + epLink;
@@ -169,7 +166,7 @@ export const animeIndo = {
 
       // Extract video links
       const videoLinks: Array<{ label: string; videoUrl: string }> = [];
-      $('.servers a.server').each((_index: number, el: Element) => {
+      $('.servers a.server').each((_index: number, el: cheerio.Element) => {
         const label = $(el).text().trim();
         let videoUrl = $(el).attr('data-video') || '';
         if (videoUrl.startsWith('//')) {
