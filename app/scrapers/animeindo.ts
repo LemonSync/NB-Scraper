@@ -11,9 +11,12 @@
  * @version 1.0.1
  */
 
-import axios from 'axios';
-import cheerio, { Element } from 'cheerio';
-import { 
+-import axios from 'axios';
+-import cheerio, { Element } from 'cheerio';
++import * as cheerio from 'cheerio';
+import {
+  // …
+}
   NBScraperResponse,
   AnimeIndoSearchResult,
   AnimeIndoDetail,
