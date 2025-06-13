@@ -17,6 +17,11 @@ export { animeIndo } from './animeindo';
 
 // Re-export types for convenience
 export type {
+	AnimeIndoAPI,
+	AnimeIndoDetail,
+	AnimeIndoDownloadInfo,
+	AnimeIndoEpisode,
+	AnimeIndoSearchResult,
   BlackBoxAIData,
   BlackBoxAIOptions,
   BlackBoxSource,
