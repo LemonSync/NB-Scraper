@@ -1,29 +1,17 @@
-/**
- * @fileoverview Facebook Video Downloader
- * Service URL: https://fdownloader.net
- * 
- * Features:
- * - Download Facebook videos in multiple qualities
- * - Get video metadata (title, duration, thumbnail)
- * - Handles authentication tokens automatically
- * 
- * @author NB Team
- * @version 1.0.0
- */
-
 import cheerio from 'cheerio';
 import qs from 'qs';
 import {
   NBScraperResponse,
-  FacebookDownloaderAPI,
   FacebookDownloadLink,
   FacebookVideoData,
-  ScraperErrorType
+  ScraperErrorType,
+  RequestConfig
 } from '../types';
 import {
   createErrorResponse,
   createSuccessResponse,
-  validateRequiredParams
+  validateRequiredParams,
+  makeRequests
 } from '../utils';
 
 interface VerifyResponse {
@@ -38,22 +26,18 @@ interface AjaxResponse {
 }
 
 /**
- * Download Facebook video with multiple quality options
+ * Facebook Video Downloader Service using makeRequests
  * 
- * @example
- * ```typescript
- * const result = await fbDownloader('https://www.facebook.com/share/v/...');
- * if (result.status) {
- *   console.log(result.data.links);
- * }
- * ```
- * 
- * @param url - Facebook video URL
+ * @param url - Facebook video URL (must be in format: https://www.facebook.com/share/v/...)
  * @returns Promise<NBScraperResponse<FacebookVideoData>>
  */
-export async function fbDownloader(url: string): Promise<NBScraperResponse<FacebookVideoData>> {
+export async function facebookDownloader(url: string): Promise<NBScraperResponse<FacebookVideoData>> {
   try {
-    validateRequiredParams({ url }, ['url']);
+    // Validate input parameters
+    const validation = validateRequiredParams({ url }, ['url']);
+    if (!validation.status) {
+      return validation;
+    }
 
     // Validate URL format
     if (!/^https:\/\/www\.facebook\.com\/share\/v\//.test(url)) {
@@ -65,25 +49,26 @@ export async function fbDownloader(url: string): Promise<NBScraperResponse<Faceb
 
     // Step 1: Get verification token
     const verifyPayload = qs.stringify({ url });
-    const verifyRes = await axios.post<VerifyResponse>(
-      'https://fdownloader.net/api/userverify',
-      verifyPayload,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'Accept': '/',
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      }
-    );
+    const verifyConfig: RequestConfig = {
+      method: 'POST',
+      url: 'https://fdownloader.net/api/userverify',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Accept': '/',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      data: verifyPayload
+    };
 
-    const cftoken = verifyRes.data?.token;
-    if (!cftoken) {
+    const verifyRes = await makeRequests<VerifyResponse>(verifyConfig);
+    if (!verifyRes.status || !verifyRes.data?.token) {
       return createErrorResponse('Failed to get verification token', {
         type: ScraperErrorType.AUTH_ERROR,
         context: { service: 'FacebookDownloader' }
       });
     }
+
+    const cftoken = verifyRes.data.token;
 
     // Step 2: Get video data
     const ajaxPayload = qs.stringify({
@@ -97,18 +82,18 @@ export async function fbDownloader(url: string): Promise<NBScraperResponse<Faceb
       cftoken
     });
 
-    const ajaxRes = await axios.post<AjaxResponse>(
-      'https://v3.fdownloader.net/api/ajaxSearch',
-      ajaxPayload,
-      {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-          'Accept': '/'
-        }
-      }
-    );
+    const ajaxConfig: RequestConfig = {
+      method: 'POST',
+      url: 'https://v3.fdownloader.net/api/ajaxSearch',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Accept': '/'
+      },
+      data: ajaxPayload
+    };
 
-    if (ajaxRes.data.status !== 'ok' || !ajaxRes.data.data) {
+    const ajaxRes = await makeRequests<AjaxResponse>(ajaxConfig);
+    if (!ajaxRes.status || ajaxRes.data?.status !== 'ok' || !ajaxRes.data?.data) {
       return createErrorResponse('Failed to fetch video data', {
         type: ScraperErrorType.API_ERROR,
         context: { service: 'FacebookDownloader' }
