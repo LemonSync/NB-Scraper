@@ -11,7 +11,7 @@ import {
   createErrorResponse,
   createSuccessResponse,
   validateRequiredParams,
-  makeRequests
+  makeRequest
 } from '../utils';
 
 interface VerifyResponse {
