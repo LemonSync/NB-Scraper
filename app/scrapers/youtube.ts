@@ -98,7 +98,10 @@ export const Ytdl = {
     YouTubeDownloadResult >> => {
       const urlValidation = validateYouTubeUrl(url);
       if (!urlValidation.status) {
-        return createErrorResponse(urlValidation.error, urlValidation.meta);
+        return createErrorResponse(
+          urlValidation.error ??
+          "Invalid YouTube URL", { type: ScraperErrorType.INVALID_INPUT }
+        );
       }
       
       const ds = new FormData();
@@ -157,7 +160,10 @@ export const Ytdl = {
     NBScraperResponse < YouTubeDownloadResult >> => {
       const urlValidation = validateYouTubeUrl(url);
       if (!urlValidation.status) {
-        return createErrorResponse(urlValidation.error, urlValidation.meta);
+        return createErrorResponse(
+          urlValidation.error ??
+          "Invalid YouTube URL", { type: ScraperErrorType.INVALID_INPUT }
+        );
       }
       
       if (!Object.keys(validQualities).includes(quality)) {
@@ -209,9 +215,6 @@ export const Ytdl = {
           });
         }
         
-        metadata.downloadUrl = downloadUrl;
-        
-        return createSuccessResponse(metadata as YouTubeDownloadResult);
       } catch (error: unknown) {
         if ((error as AxiosError).code === 'ECONNABORTED') {
           return createErrorResponse("Request timeout", {
