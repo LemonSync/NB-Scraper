@@ -1,15 +1,14 @@
 {
   "entryPoints": ["app/index.ts"],
   "out": "docs",
-  "theme": "hierarchy",
-  "name": "NB Scraper Documentation",
+  "name": "NB Scraper Docs",
   "includeVersion": true,
-  "entryPointStrategy": "Expand",
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeExternals": true,
   "tsconfig": "./tsconfig.json",
-  "readme": "readme.md",
+  "readme": "docs.md",
+  "favicon": "./public/favicon.ico",
   "categorizeByGroup": true,
   "defaultCategory": "Other",
   "categoryOrder": [
@@ -41,7 +40,7 @@
   "plugin": [
     "typedoc-plugin-missing-exports",
     "typedoc-plugin-mdn-links",
-    "typedoc-theme-hierarchy"
+    "typedoc-material-theme"
   ],
   "githubPages": true,
   "hideGenerator": true,

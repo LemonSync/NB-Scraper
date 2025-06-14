@@ -2,7 +2,7 @@
  * Scrapers module exports
  * 
  * @module Scrapers
- * @since 1.1.0
+ * @since 1.1.3
  */
 
 export { blackboxAi } from './blackbox';
@@ -13,9 +13,16 @@ export { analyzeDream, quickDreamAnalysis, premiumDreamAnalysis } from './dreama
 export { generatePollinationsImage, getPollinationsDirectUrl } from './pollinations';
 export { searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud';
 export { generateDeepInfraResponse } from './deepinfra';
+export * from './animeindo';
+export { facebookDownloader } from './facebook';
 
 // Re-export types for convenience
 export type {
+	AnimeIndoAPI,
+	AnimeIndoDetail,
+	AnimeIndoDownloadInfo,
+	AnimeIndoEpisode,
+	AnimeIndoSearchResult,
   BlackBoxAIData,
   BlackBoxAIOptions,
   BlackBoxSource,
@@ -39,5 +46,8 @@ export type {
   DeepInfraAIResponse,
   ThreadsMediaData,
   ThreadsOptions,
+  FacebookDownloaderAPI,
+  FacebookDownloadLink,
+  FacebookVideoData,
   PinterestData
 } from '../types';

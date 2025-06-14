@@ -52,6 +52,9 @@ export enum ScraperErrorType {
   IMAGE_GENERATION_ERROR = 'IMAGE_GENERATION_ERROR',
   /** Error calling external API */
   API_ERROR = 'API_ERROR',
+  DOWNLOAD_ERROR = 'DOWNLOAD_ERROR',
+  NOT_FOUND = 'NOT_FOUND',
+  QUALITY_NOT_AVAILABLE = 'QUALITY_NOT_AVAILABLE',
   /** Unknown or unexpected error */
   UNKNOWN_ERROR = 'UNKNOWN_ERROR'
 }
@@ -94,6 +97,23 @@ export interface PollinationsData {
 export interface PinterestData {
   /** Array of image URLs */
   result: string[];
+}
+
+export interface FacebookDownloadLink {
+  quality: string;
+  format: 'mp4' | 'unknown';
+  link: string;
+}
+
+export interface FacebookVideoData {
+  title: string;
+  duration: string;
+  thumbnail: string;
+  links: FacebookDownloadLink[];
+}
+
+export interface FacebookDownloaderAPI {
+  (url: string): Promise < NBScraperResponse < FacebookVideoData >> ;
 }
 
 /**
@@ -299,6 +319,65 @@ export interface ThreadsOptions extends RequestConfig {
   /** Whether to include only videos */
   videosOnly?: boolean;
   [key: string]: unknown;
+}
+
+export interface AnimeIndoSearchResult {
+  title: string;
+  link: string;
+  image: string;
+  year: string;
+  description: string;
+  rating?: string;
+  status?: string;
+}
+
+export interface AnimeIndoEpisode {
+  episode: string;
+  link: string;
+  date?: string;
+  downloadLinks?: {
+    server: string;
+    url: string;
+  }[];
+}
+
+export interface AnimeIndoDetail {
+  title: string;
+  image: string;
+  genres: string[];
+  description: string;
+  episodes: AnimeIndoEpisode[];
+  rating?: string;
+  status?: string;
+  duration?: string;
+  studio?: string;
+}
+
+export interface AnimeIndoDownloadInfo {
+  title: string;
+  description: string;
+  videoLinks: Array<{
+    label: string;
+    videoUrl: string;
+    quality?: string;
+  }>;
+  gdriveHdLink: string;
+  downloadUrl: string;
+  fileName: string;
+  fileSize: string;
+  mimetype: string;
+  thumbnail?: string;
+  duration?: string;
+  subtitles?: {
+    language: string;
+    url: string;
+  }[];
+}
+
+export interface AnimeIndoAPI {
+  search(query: string): Promise<NBScraperResponse<AnimeIndoSearchResult[]>>;
+  detail(url: string): Promise<NBScraperResponse<AnimeIndoDetail>>;
+  download(episodeUrl: string): Promise<NBScraperResponse<AnimeIndoDownloadInfo>>;
 }
 
 /**
