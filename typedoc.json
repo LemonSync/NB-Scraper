@@ -6,9 +6,9 @@
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeExternals": true,
-  "tsconfig": "./tsconfig.json",
+  "tsconfig": "tsconfig.json",
   "readme": "docs.md",
-  "favicon": "./public/favicon.ico",
+  "favicon": "public/favicon.ico",
   "categorizeByGroup": true,
   "defaultCategory": "Other",
   "categoryOrder": [
