@@ -2,7 +2,7 @@
  * NB Scraper - Community scraper library by Er Rickow
  * 
  * @packageDocumentation
- * @since 1.1.0
+ * @since 1.1.1
  */
 
 // Export all scrapers
@@ -65,7 +65,7 @@ export {
  * Library version
  * @public
  */
-export const VERSION = '1.2.0';
+export const VERSION = '1.1.6';
 
 /**
  * Library information
@@ -77,5 +77,5 @@ export const INFO = {
 	author: 'Er Rickow',
 	description: 'NB Community scraper library',
 	repository: 'https://github.com/chakszzz/nb-scraper',
-	documentation: 'https://chakszzz.github.io/nb-scraper'
+	documentation: 'https://Chakszzz.github.io/NB-Scraper'
 } as const;

@@ -2,7 +2,7 @@
  * Scrapers module exports
  * 
  * @module Scrapers
- * @since 1.1.0
+ * @since 1.1.3
  */
 
 export { blackboxAi } from './blackbox';
@@ -14,6 +14,7 @@ export { generatePollinationsImage, getPollinationsDirectUrl } from './pollinati
 export { searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud';
 export { generateDeepInfraResponse } from './deepinfra';
 export * from './animeindo';
+export { facebookDownloader } from './facebook';
 
 // Re-export types for convenience
 export type {

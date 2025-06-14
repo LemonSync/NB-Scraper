@@ -1,5 +1,6 @@
 # NB Scraper
 
+[![icon](public/logo.png)](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
 [![NPM](https://nodei.co/npm/nb-scraper.png)](https://npmjs.org/package/nb-scraper)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
@@ -11,8 +12,14 @@ A comprehensive TypeScript scraper library by **NB Team** that provides easy-to-
 ### 📢 Join Our WhatsApp Channel
 Untuk update terbaru, dukungan, dan sumber daya scraping terbaik, ikuti saluran resmi kami:
 
-**NB SCRIPT~** di WhatsApp:  
-👉 [WhatsApp Channel](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
+**NB SCRAPER** di WhatsApp:  
+<a href="https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L">
+  <img src="https://static.whatsapp.net/rsrc.php/v3/yP/r/rYZqPCBaG70.png" 
+       width="30" 
+       style="margin-right:10px" 
+       loading="lazy" 
+       alt="WhatsApp Icon">
+</a> [Join Channel](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
 
 ## Why NB-Scrape Library?
 
@@ -117,7 +124,7 @@ This project is licensed under the Unlicense – see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 - [npm Package](https://www.npmjs.com/package/nb-scraper)
-- [NB-Scrape Channel](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
+- [NB-Scraper Channel](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
 - [Documentation](https://nb-scraper.js.org)
 - [Issues](https://github.com/chakszzz/nb-scraper/issues)
 

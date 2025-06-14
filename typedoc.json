@@ -1,13 +1,14 @@
 {
   "entryPoints": ["app/index.ts"],
   "out": "docs",
-  "name": "NB Scraper Documentation",
+  "name": "NB Scraper Docs",
   "includeVersion": true,
   "excludePrivate": true,
   "excludeProtected": true,
   "excludeExternals": true,
   "tsconfig": "./tsconfig.json",
-  "readme": "readme.md",
+  "readme": "docs.md",
+  "favicon": "./public/favicon.ico",
   "categorizeByGroup": true,
   "defaultCategory": "Other",
   "categoryOrder": [
