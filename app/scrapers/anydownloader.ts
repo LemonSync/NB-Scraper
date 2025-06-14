@@ -8,7 +8,8 @@ import {
 import {
   createErrorResponse,
   createSuccessResponse,
-  makeRequests
+  validateRequiredParams,
+  makeRequest
 } from '../utils';
 
 interface TokenResponse {
@@ -28,7 +29,7 @@ async function getToken(): Promise<NBScraperResponse<TokenResponse>> {
       }
     };
 
-    const response = await makeRequests<string>(config);
+    const response = await makeRequest<string>(config);
     if (!response.status || !response.data) {
       return createErrorResponse('Failed to fetch token page', {
         type: ScraperErrorType.AUTH_ERROR
@@ -56,7 +57,9 @@ async function getToken(): Promise<NBScraperResponse<TokenResponse>> {
  * Calculate hash for the request
  */
 function calculateHash(url: string, salt: string): string {
-  return btoa(url) + (url.length + 1_000) + btoa(salt);
+  return Buffer.from(url).toString('base64') +
+    (url.length + 1_000) +
+    Buffer.from(salt).toString('base64');
 }
 
 /**
@@ -80,7 +83,10 @@ export async function anyDownloader(url: string): Promise<NBScraperResponse<AnyD
     // Get token first
     const tokenResponse = await getToken();
     if (!tokenResponse.status || !tokenResponse.data?.token) {
-      return tokenResponse;
+      return createErrorResponse(
+        tokenResponse.error ?? 'Failed to obtain token',
+        { type: ScraperErrorType.AUTH_ERROR }
+      );
     }
 
     const { token } = tokenResponse.data;
@@ -106,7 +112,7 @@ export async function anyDownloader(url: string): Promise<NBScraperResponse<AnyD
       data: data.toString()
     };
 
-    const response = await makeRequests<AnyDownloadResponse>(config);
+    const response = await makeRequest<AnyDownloadResponse>(config);
     if (!response.status || !response.data) {
       return createErrorResponse('Failed to fetch video data', {
         type: ScraperErrorType.API_ERROR

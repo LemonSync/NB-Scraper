@@ -101,7 +101,10 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
     };
 
     const ajaxRes = await makeRequest < AjaxResponse > (ajaxConfig);
-    if (ajaxRes.status !== 200 || ajaxRes.data?.status !== 'ok') {
+    if (
+      ajaxRes.status !== 200 ||
+      (typeof ajaxRes.data !== 'string' && ajaxRes.data?.status !== 'ok')
+    ) {
       return createErrorResponse('Failed to fetch video data', {
         type: ScraperErrorType.API_ERROR,
         context: { service: 'FacebookDownloader' }
