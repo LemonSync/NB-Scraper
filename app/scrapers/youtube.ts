@@ -133,19 +133,23 @@ export const Ytdl = {
           downloadUrl: data.link,
           type: "mp3"
         });
-      } catch (err: unknown) {
-        if ((err as AxiosError).code === 'ECONNABORTED') {
+      } catch (error: unknown) {
+        if ((error as AxiosError).code === 'ECONNABORTED') {
           return createErrorResponse("Request timeout", {
             type: ScraperErrorType.NETWORK_ERROR
           });
         }
-        
-        const ax = err as AxiosError;
+        const ax = error as AxiosError;
+        const serverMsg =
+          typeof ax.response?.data === "object" &&
+          ax.response?.data !== null &&
+          "message" in ax.response.data ?
+          (ax.response.data as { message: string }).message :
+          undefined;
         return createErrorResponse(
-          ax.response?.data?.message || ax.message ||
-          "failed to convert audio",
-          {
-            type: ScraperErrorType.API_ERROR
+          serverMsg ?? ax.message ?? "Audio Download Failed", {
+            type: ScraperErrorType
+              .API_ERROR
           }
         );
       }
@@ -191,7 +195,7 @@ export const Ytdl = {
           });
         
         if (!firstResponse.data?.progress_url) {
-          return createErrorResponse("Gagal memulai proses download", {
+          return createErrorResponse("Failed to proceed download", {
             type: ScraperErrorType.API_ERROR
           });
         }
@@ -209,8 +213,12 @@ export const Ytdl = {
             .progress_url);
           metadata.downloadUrl = downloadUrl;
           return createSuccessResponse(metadata as YouTubeDownloadResult);
-        } catch (timeoutError) {
-          return createErrorResponse(timeoutError.message, {
+        } catch (timeoutError: unknown) {
+          const msg =
+            timeoutError instanceof Error ?
+            timeoutError.message :
+            String(timeoutError);
+          return createErrorResponse(msg, {
             type: ScraperErrorType.NETWORK_ERROR
           });
         }
@@ -221,13 +229,17 @@ export const Ytdl = {
             type: ScraperErrorType.NETWORK_ERROR
           });
         }
-        
         const ax = error as AxiosError;
+        const serverMsg =
+          typeof ax.response?.data === "object" &&
+          ax.response?.data !== null &&
+          "message" in ax.response.data ?
+          (ax.response.data as { message: string }).message :
+          undefined;
         return createErrorResponse(
-          ax.response?.data?.message || ax.message ||
-          "Video Download Failed",
-          {
-            type: ScraperErrorType.API_ERROR
+          serverMsg ?? ax.message ?? "Video Download Failed", {
+            type: ScraperErrorType
+              .API_ERROR
           }
         );
       }
