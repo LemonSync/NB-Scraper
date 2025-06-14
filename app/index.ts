@@ -52,7 +52,12 @@ export type {
 	FacebookDownloaderAPI,
 	FacebookDownloadLink,
 	FacebookVideoData,
-	PinterestData
+	PinterestData,
+	YouTubeDownloaderAPI,
+	YouTubeDownloadResult,
+	YouTubeMP3Response,
+	YouTubeProgressResponse,
+	YouTubeVideoResponse
 } from './types';
 
 // Export utilities (for advanced users)

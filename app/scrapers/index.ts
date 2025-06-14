@@ -16,6 +16,7 @@ export { generateDeepInfraResponse } from './deepinfra';
 export * from './animeindo';
 export { facebookDownloader } from './facebook';
 export { anyDownloader } from './anydownloader';
+export * from './youtube';
 
 // Re-export types for convenience
 export type {
@@ -54,5 +55,10 @@ export type {
   FacebookDownloaderAPI,
   FacebookDownloadLink,
   FacebookVideoData,
-  PinterestData
+  PinterestData,
+  YouTubeDownloaderAPI,
+  YouTubeDownloadResult,
+  YouTubeMP3Response,
+  YouTubeProgressResponse,
+  YouTubeVideoResponse
 } from '../types';

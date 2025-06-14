@@ -59,6 +59,38 @@ export interface AnyDownloaderAPI {
   (url: string): Promise<NBScraperResponse<AnyDownloadResponse>>;
 }
 
+export interface YouTubeDownloadResult {
+  title: string;
+  downloadUrl: string;
+  thumbnail?: string;
+  quality?: string;
+  type: 'mp3' | 'mp4';
+  duration?: string;
+}
+
+export interface YouTubeMP3Response {
+  link: string;
+  filename: string;
+}
+
+export interface YouTubeVideoResponse {
+  progress_url: string;
+  info?: {
+    image: string;
+    title: string;
+  };
+}
+
+export interface YouTubeProgressResponse {
+  progress: number;
+  download_url: string;
+}
+
+export interface YouTubeDownloaderAPI {
+  youtubeMp3(url: string): Promise<NBScraperResponse<YouTubeDownloadResult>>;
+  ytdl(url: string, quality?: string): Promise<NBScraperResponse<YouTubeDownloadResult>>;
+}
+
 /**
  * Error types that can occur during scraping
  */
