@@ -71,7 +71,8 @@
     "path": "^0.12.7",
     "cheerio": "^1.0.0-rc.12",
     "form-data": "latest",
-    "fs": "latest"
+    "fs": "latest",
+    "qs": "latest"
   },
   "engines": {
     "node": ">=16.0.0"

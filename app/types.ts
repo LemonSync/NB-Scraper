@@ -53,6 +53,7 @@ export enum ScraperErrorType {
   /** Error calling external API */
   API_ERROR = 'API_ERROR',
   DOWNLOAD_ERROR = 'DOWNLOAD_ERROR',
+  NOT_FOUND = 'NOT_FOUND',
   QUALITY_NOT_AVAILABLE = 'QUALITY_NOT_AVAILABLE',
   /** Unknown or unexpected error */
   UNKNOWN_ERROR = 'UNKNOWN_ERROR'
@@ -96,6 +97,23 @@ export interface PollinationsData {
 export interface PinterestData {
   /** Array of image URLs */
   result: string[];
+}
+
+export interface FacebookDownloadLink {
+  quality: string;
+  format: 'mp4' | 'unknown';
+  link: string;
+}
+
+export interface FacebookVideoData {
+  title: string;
+  duration: string;
+  thumbnail: string;
+  links: FacebookDownloadLink[];
+}
+
+export interface FacebookDownloaderAPI {
+  (url: string): Promise < NBScraperResponse < FacebookVideoData >> ;
 }
 
 /**

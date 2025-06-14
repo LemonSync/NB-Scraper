@@ -45,5 +45,8 @@ export type {
   DeepInfraAIResponse,
   ThreadsMediaData,
   ThreadsOptions,
+  FacebookDownloaderAPI,
+  FacebookDownloadLink,
+  FacebookVideoData,
   PinterestData
 } from '../types';
