@@ -4,13 +4,13 @@ import {
   NBScraperResponse,
   FacebookDownloadLink,
   FacebookVideoData,
-  ScraperErrorType,
-  RequestConfig
+  ScraperErrorType
 } from '../types';
 import {
   createErrorResponse,
   createSuccessResponse,
   validateRequiredParams,
+  requestConfig,
   makeRequest
 } from '../utils';
 
@@ -26,7 +26,7 @@ interface AjaxResponse {
 }
 
 /**
- * Facebook Video Downloader Service using makeRequests
+ * Facebook Video Downloader Service using makeRequest
  * 
  * @param url - Facebook video URL (must be in format: https://www.facebook.com/share/v/...)
  * @returns Promise<NBScraperResponse<FacebookVideoData>>
@@ -34,9 +34,9 @@ interface AjaxResponse {
 export async function facebookDownloader(url: string): Promise<NBScraperResponse<FacebookVideoData>> {
   try {
     // Validate input parameters
-    const validation = validateRequiredParams({ url }, ['url']);
-    if (!validation.status) {
-      return validation;
+    const validationError = validateRequiredParams({ url }, ['url']);
+    if (validationError) {
+      return validationError;
     }
 
     // Validate URL format
@@ -49,7 +49,7 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
 
     // Step 1: Get verification token
     const verifyPayload = qs.stringify({ url });
-    const verifyConfig: RequestConfig = {
+    const verifyConfig: requestConfig = {
       method: 'POST',
       url: 'https://fdownloader.net/api/userverify',
       headers: {
@@ -60,7 +60,7 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
       data: verifyPayload
     };
 
-    const verifyRes = await makeRequests<VerifyResponse>(verifyConfig);
+    const verifyRes = await makeRequest<VerifyResponse>(verifyConfig);
     if (!verifyRes.status || !verifyRes.data?.token) {
       return createErrorResponse('Failed to get verification token', {
         type: ScraperErrorType.AUTH_ERROR,
@@ -82,7 +82,7 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
       cftoken
     });
 
-    const ajaxConfig: RequestConfig = {
+    const ajaxConfig: requestConfig = {
       method: 'POST',
       url: 'https://v3.fdownloader.net/api/ajaxSearch',
       headers: {
@@ -92,7 +92,7 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
       data: ajaxPayload
     };
 
-    const ajaxRes = await makeRequests<AjaxResponse>(ajaxConfig);
+    const ajaxRes = await makeRequest<AjaxResponse>(ajaxConfig);
     if (!ajaxRes.status || ajaxRes.data?.status !== 'ok' || !ajaxRes.data?.data) {
       return createErrorResponse('Failed to fetch video data', {
         type: ScraperErrorType.API_ERROR,
