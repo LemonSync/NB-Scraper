@@ -34,11 +34,8 @@ interface AjaxResponse {
 export async function facebookDownloader(url: string): Promise<NBScraperResponse<FacebookVideoData>> {
   try {
     // Validate input parameters
-    const validationError = validateRequiredParams({ url }, ['url']);
-    if (validationError) {
-      return validationError;
-    }
-
+    validateRequiredParams({ url }, ['url'])
+    
     // Validate URL format
     if (!/^https:\/\/www\.facebook\.com\/share\/v\//.test(url)) {
       return createErrorResponse('Invalid Facebook video URL format', {
@@ -54,14 +51,14 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
       url: 'https://fdownloader.net/api/userverify',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'Accept': '/',
+        'Accept': '*/*',
         'X-Requested-With': 'XMLHttpRequest'
       },
       data: verifyPayload
     };
 
     const verifyRes = await makeRequest<VerifyResponse>(verifyConfig);
-    if (!verifyRes.status || !verifyRes.data?.token) {
+    if (verifyRes.status !== 200 || !verifyRes.data?.token) {
       return createErrorResponse('Failed to get verification token', {
         type: ScraperErrorType.AUTH_ERROR,
         context: { service: 'FacebookDownloader' }
@@ -87,7 +84,7 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
       url: 'https://v3.fdownloader.net/api/ajaxSearch',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        'Accept': '/'
+        'Accept': '*/*'
       },
       data: ajaxPayload
     };
