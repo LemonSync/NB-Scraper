@@ -37,7 +37,9 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
     validateRequiredParams({ url }, ['url'])
     
     // Validate URL format
-    if (new URL(url).host.endsWith('facebook.com')) {
+    const allowedHosts = ['facebook.com', 'www.facebook.com'];
+    const parsedHost = new URL(url).host;
+    if (!allowedHosts.includes(parsedHost)) {
       return createErrorResponse('Invalid Facebook video URL format', {
         type: ScraperErrorType.INVALID_INPUT,
         context: { url }
