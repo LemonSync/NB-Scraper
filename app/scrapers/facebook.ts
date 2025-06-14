@@ -1,3 +1,4 @@
+import type { AxiosRequestConfig } from 'axios';
 import cheerio from 'cheerio';
 import qs from 'qs';
 import {
@@ -10,7 +11,6 @@ import {
   createErrorResponse,
   createSuccessResponse,
   validateRequiredParams,
-  requestConfig,
   makeRequest
 } from '../utils';
 
@@ -49,7 +49,7 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
 
     // Step 1: Get verification token
     const verifyPayload = qs.stringify({ url });
-    const verifyConfig: requestConfig = {
+    const verifyConfig: AxiosRequestConfig = {
       method: 'POST',
       url: 'https://fdownloader.net/api/userverify',
       headers: {
@@ -82,7 +82,7 @@ export async function facebookDownloader(url: string): Promise<NBScraperResponse
       cftoken
     });
 
-    const ajaxConfig: requestConfig = {
+    const ajaxConfig: AxiosRequestConfig = {
       method: 'POST',
       url: 'https://v3.fdownloader.net/api/ajaxSearch',
       headers: {
