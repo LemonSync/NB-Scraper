@@ -2,7 +2,7 @@
  * Scrapers module exports
  * 
  * @module Scrapers
- * @since 1.1.3
+ * @since 1.1.4
  */
 
 export { blackboxAi } from './blackbox';
@@ -15,9 +15,14 @@ export { searchSoundCloud, getSoundCloudCacheInfo } from './soundcloud';
 export { generateDeepInfraResponse } from './deepinfra';
 export * from './animeindo';
 export { facebookDownloader } from './facebook';
+export { anyDownloader } from './anydownloader';
 
 // Re-export types for convenience
 export type {
+	AnyDownloaderAPI,
+	AnyDownloadMedia,
+	AnyDownloadResponse,
+	AnyDownloadResult,
 	AnimeIndoAPI,
 	AnimeIndoDetail,
 	AnimeIndoDownloadInfo,

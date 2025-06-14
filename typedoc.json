@@ -1,6 +1,7 @@
 {
   "entryPoints": ["app/index.ts"],
   "out": "docs",
+  "cname": "nb-scraper.js.org",
   "name": "NB Scraper Docs",
   "includeVersion": true,
   "excludePrivate": true,

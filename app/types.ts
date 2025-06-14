@@ -1,7 +1,7 @@
 /**
  * @fileoverview Type definitions for NB Scraper
  * @author ErRickow
- * @version 1.1.0
+ * @version 1.1.3
  */
 
 /**
@@ -27,6 +27,36 @@ export interface RequestConfig {
 	headers ? : Record < string, string > | undefined;
 	retries ? : number | undefined;
 	retryDelay ? : number | undefined;
+}
+
+export interface AnyDownloadMedia {
+  url: string;
+  quality: string;
+  extension: string;
+  size: number;
+  formattedSize: string;
+  videoAvailable: boolean;
+  audioAvailable: boolean;
+  chunked: boolean;
+  cached: boolean;
+}
+
+export interface AnyDownloadResult {
+  title: string;
+  duration: string | null;
+  thumbnail: string;
+  downloadUrls: AnyDownloadMedia[];
+}
+
+export interface AnyDownloadResponse {
+  input_url: string;
+  source: string;
+  result: AnyDownloadResult;
+  error: string | null;
+}
+
+export interface AnyDownloaderAPI {
+  (url: string): Promise<NBScraperResponse<AnyDownloadResponse>>;
 }
 
 /**

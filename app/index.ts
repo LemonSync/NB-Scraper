@@ -2,8 +2,10 @@
  * NB Scraper - Community scraper library by Er Rickow
  * 
  * @packageDocumentation
- * @since 1.1.1
+ * @since 1.1.2
  */
+ 
+import pkg from "../package.json";
 
 // Export all scrapers
 export * from './scrapers/index';
@@ -15,6 +17,10 @@ export type {
 	RequestConfig,
 	ScraperError,
 	ScraperErrorType,
+	AnyDownloaderAPI,
+	AnyDownloadMedia,
+	AnyDownloadResponse,
+	AnyDownloadResult,
 	AnimeIndoAPI,
 	AnimeIndoDetail,
 	AnimeIndoDownloadInfo,
@@ -65,7 +71,7 @@ export {
  * Library version
  * @public
  */
-export const VERSION = '1.1.6';
+export const VERSION = pkg.version;
 
 /**
  * Library information
