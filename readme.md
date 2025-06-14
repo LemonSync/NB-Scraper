@@ -8,6 +8,16 @@
 
 A comprehensive TypeScript scraper library by **NB Team** that provides easy-to-use functions for interact with various scraper service from NB Scripts.
 
+### 📢 Join Our WhatsApp Channel
+Untuk update terbaru, dukungan, dan sumber daya scraping terbaik, ikuti saluran resmi kami:
+
+**NB SCRIPT~** di WhatsApp:  
+👉 [WhatsApp Channel](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
+
+## Why NB-Scrape Library?
+
+This project is designed to be easy to use. Visit the [WhatsApp Channel](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L) for the code resources
+
 ## 📦 Installation
 **Using npm:**
 ```bash
@@ -27,35 +37,26 @@ pnpm add nb-scraper
 ### ESM (Modern JavaScript/TypeScript)
 
 ```typescript
-import { blackboxAi, threads } from 'nb-scraper';
+import { generateDeepInfraResponse } from 'nb-scraper';
 
-// Scrape BlackBox AI
-const aiResult = await blackboxAi('What is TypeScript?');
-if (aiResult.status) {
-  console.log('AI Response:', aiResult.data.response);
-  console.log('Sources:', aiResult.data.source);
-} else {
-  console.error('Error:', aiResult.error);
-}
+const result = await generateDeepInfraResponse({
+  prompt: "Explain JavaScript in simple terms",
+  model: "deepseek-ai/DeepSeek-R1"
+});
 
-// Scrape Threads media
-const mediaResult = await threads('https://www.threads.net/@username/post/123456789');
-if (mediaResult.status) {
-  console.log('Images:', mediaResult.data.image_urls);
-  console.log('Videos:', mediaResult.data.video_urls);
-} else {
-  console.error('Error:', mediaResult.error);
+if (result.status) {
+  console.log(result.data.response);
 }
 ```
 
 ### CommonJS (Node.js)
 
 ```javascript
-const { blackboxAi, threads } = require('nb-scraper');
+const { generateDeepInfraResponse } = require('nb-scraper');
 
 // Same usage as above
 (async () => {
-  const result = await blackboxAi('Hello World');
+  const result = await generateDeepInfraResponse('What the meaning of Pahlawan Indonesia?');
   console.log(result);
 })();
 ```
@@ -67,15 +68,7 @@ const { blackboxAi, threads } = require('nb-scraper');
   creator: "...",
   status: true,
   data: {
-    response: "TypeScript is a programming language...",
-    source: [
-      {
-        link: "https://example.com",
-        title: "TypeScript Documentation",
-        snippet: "TypeScript is...",
-        position: 1
-      }
-    ]
+    response: "...", 
   }
 }
 ```
@@ -95,7 +88,7 @@ const { blackboxAi, threads } = require('nb-scraper');
 NB Scraper is designed to never throw errors. Instead, all functions return a response object with a `status` field:
 
 ```typescript
-const result = await blackboxAi('test query');
+const result = await generateDeepInfraResponse('test query');
 
 if (result.status) {
   // Success - use result.data
@@ -113,6 +106,8 @@ Common error types:
 - `RATE_LIMITED`: Rate limiting or quota exceeded
 - `SERVICE_UNAVAILABLE`: Service temporarily unavailable
 
+See the [ERROR TYPES](app/types.ts)
+
 ## Available Scrapers
 **See The [scrapers folder](app/scrapers)**
 
@@ -120,12 +115,9 @@ Common error types:
 
 This project is licensed under the Unlicense – see the [LICENSE](LICENSE) file for details.
 
-## Resource
-
-This project is designed to be easy to use.
-
 ## 🔗 Links
 - [npm Package](https://www.npmjs.com/package/nb-scraper)
+- [NB-Scrape Channel](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
 - [Documentation](https://nb-scraper.js.org)
 - [Issues](https://github.com/chakszzz/nb-scraper/issues)
 
