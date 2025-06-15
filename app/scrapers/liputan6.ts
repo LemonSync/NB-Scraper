@@ -7,9 +7,9 @@ import type {
   NBScraperResponse,
   Liputan6NewsItem,
   Liputan6SearchResult,
-  Liputan6NewsDetail,
-  ScraperErrorType
+  Liputan6NewsDetail
 } from '../types';
+import { ScraperErrorType } from '../types';
 import {
   createErrorResponse,
   createSuccessResponse,
@@ -37,8 +37,8 @@ export const liputan6 = {
    */
   async getNews(): Promise<NBScraperResponse<Liputan6NewsItem[]>> {
     try {
-      const response = await makeRequest({ url: BASE_URL });
-      const $ = cheerio.load(response.data);
+      const response = await makeRequest<string>({ url: BASE_URL });
+      const $ = cheerio.load(response.data as string);
       const articles: Liputan6NewsItem[] = [];
 
       $('.articles--iridescent-list--text-item').each((_, el) => {
@@ -83,8 +83,8 @@ export const liputan6 = {
     try {
       validateRequiredParams({ query }, ['query']);
       const url = `${BASE_URL}/search?q=${encodeURIComponent(query)}`;
-      const response = await makeRequest({ url });
-      const $ = cheerio.load(response.data);
+      const response = await makeRequest<string>({ url });
+      const $ = cheerio.load(response.data as string);
       const results: Liputan6SearchResult[] = [];
 
       $('.articles--iridescent-list--text-item').each((_, el) => {
@@ -135,10 +135,10 @@ export const liputan6 = {
       // (paginasi)
       while (hasNextPage) {
         const pageUrl = currentPage === 1 ? baseUrl : `${baseUrl}?page=${currentPage}`;
-        const response = await makeRequest({ url: pageUrl });
+        const response = await makeRequest<string>({ url: pageUrl });
         fullHtml += response.data;
 
-        const $page = cheerio.load(response.data);
+        const $page = cheerio.load(response.data as string);
         hasNextPage = $page('.paging__link--next').length > 0;
         currentPage++;
       }

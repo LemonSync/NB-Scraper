@@ -19,7 +19,7 @@ const USER_AGENT = 'Mozilla/5.0 (Linux; Android 10; SM-G973F) AppleWebKit/537.36
 
 // Internal helper to get the request token
 async function getToken(): Promise<string> {
-    const response = await makeRequest({
+    const response = await makeRequest<string>({
         url: `${BASE_URL}/en2`,
         headers: {
             'User-Agent': USER_AGENT,
@@ -27,7 +27,7 @@ async function getToken(): Promise<string> {
             'Accept-Language': 'en-US,en;q=0.9,id;q=0.8'
         }
     });
-    const $ = cheerio.load(response.data);
+    const $ = cheerio.load(response.data as string);
     const token = $('input[name="token"]').val() as string;
     if (!token) {
         throw new Error('Token not found on the page.');
@@ -112,7 +112,7 @@ function extractAllInfo(html: string): Omit<TikTokData, 'originalUrl'> | null {
     $('a[href*="rapidcdn"], a[href*="download"]').each((_, el) => {
         const href = $(el).attr('href');
         const text = $(el).text().trim();
-        if (href && href.includes('http')) {
+        if (href?.includes('http')) {
             downloadLinks.push({
                 type: 'video',
                 url: href,

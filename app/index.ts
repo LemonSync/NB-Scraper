@@ -99,6 +99,4 @@ export const INFO = {
 	description: 'NB Community scraper library',
 	repository: 'https://github.com/chakszzz/nb-scraper',
 	documentation: 'https://Chakszzz.github.io/NB-Scraper'
-}
-as
-const;
+} as const;

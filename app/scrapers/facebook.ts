@@ -26,7 +26,7 @@ interface AjaxResponse {
 }
 
 /**
- * @beta
+ * @alpha
  * Facebook Video Downloader Service using
  * 
  * @param url - Facebook video URL (must be in format: https://www.facebook.com/share/v/...)
