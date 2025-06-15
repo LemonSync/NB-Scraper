@@ -2,11 +2,8 @@
  * NB Scraper - Community scraper library by Er Rickow
  * 
  * @packageDocumentation
- * @since 1.1.2
+ * @since 1.1.3
  */
- 
-import pkg from "../package.json";
-
 // Export all scrapers
 export * from './scrapers/index';
 
@@ -76,7 +73,7 @@ export {
  * Library version
  * @public
  */
-export const VERSION = pkg.version;
+export const VERSION = "1.1.9";
 
 /**
  * Library information
