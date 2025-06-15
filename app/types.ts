@@ -386,6 +386,77 @@ export interface ThreadsOptions extends RequestConfig {
   [key: string]: unknown;
 }
 
+/**
+ * Liputan 6 Scraper Types
+ */
+export interface Liputan6NewsItem {
+  title: string;
+  link: string;
+  thumb?: string;
+  summary?: string;
+ // author: string;
+}
+
+export interface Liputan6SearchResult {
+  title: string;
+  link: string;
+  //author: string;
+}
+
+export interface Liputan6NewsDetail {
+  title: string;
+  description?: string;
+  image?: string;
+  published?: string;
+  author?: string;
+  content: string;
+}
+
+export interface Liputan6API {
+  getHomeNews(): Promise<NBScraperResponse<Liputan6NewsItem[]>>;
+  searchNews(query: string): Promise<NBScraperResponse<Liputan6SearchResult[]>>;
+  getNewsDetail(url: string): Promise<NBScraperResponse<Liputan6NewsDetail>>;
+}
+
+/**
+ * TikTok Scraper Types
+ */
+export interface TikTokPhoto {
+  index: number;
+  imageUrl: string;
+  downloadUrl: string;
+  type: 'photo';
+}
+
+export interface TikTokVideoLink {
+  type: 'video';
+  url: string;
+  quality: 'HD' | 'Normal' | string;
+  label: string;
+}
+
+export interface TikTokRenderData {
+  hasRenderButton: boolean;
+  token?: string;
+  isAd?: boolean;
+  type?: 'render';
+}
+
+export interface TikTokData {
+  originalUrl: string;
+  title: string;
+  author: string;
+  thumbnail: string;
+  contentType: 'slideshow' | 'video';
+  downloadLinks: TikTokVideoLink[];
+  photos: TikTokPhoto[];
+  renderData: TikTokRenderData;
+}
+
+export interface TikTokAPI {
+  (url: string): Promise<NBScraperResponse<TikTokData>>;
+}
+
 export interface AnimeIndoSearchResult {
   title: string;
   link: string;

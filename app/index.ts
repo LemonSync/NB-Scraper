@@ -32,20 +32,31 @@ export type {
 	ExomlAPIRandomData,
 	PollinationsOptions,
 	PollinationsData,
+	SoundCloudApiResponse,
+	SoundCloudApiTrack,
 	SoundCloudTrack,
 	SoundCloudSearchOptions,
 	SoundCloudData,
 	SoundCloudCache,
 	DreamAnalysisOptions,
 	DreamAnalysisData,
-  DeepInfraAIData,
-  DeepInfraAIOptions,
-  DeepInfraAIMessage,
-  DeepInfraAIModel,
-  DeepInfraAIRequest,
-  DeepInfraAIResponse,
+	DeepInfraAIData,
+	DeepInfraAIOptions,
+	DeepInfraAIMessage,
+	DeepInfraAIModel,
+	DeepInfraAIRequest,
+	DeepInfraAIResponse,
+	Liputan6API,
+	Liputan6NewsDetail,
+	Liputan6NewsItem,
+	Liputan6SearchResult,
 	ThreadsMediaData,
 	ThreadsOptions,
+	TikTokAPI,
+	TikTokData,
+	TikTokPhoto,
+	TikTokRenderData,
+	TikTokVideoLink,
 	FacebookDownloaderAPI,
 	FacebookDownloadLink,
 	FacebookVideoData,
@@ -55,7 +66,8 @@ export type {
 	YouTubeMP3Response,
 	YouTubeProgressResponse,
 	YouTubeVideoResponse
-} from './types';
+}
+from './types';
 
 // Export utilities (for advanced users)
 export {
@@ -67,7 +79,8 @@ export {
 	formatBytes,
 	DEFAULT_CONFIG,
 	CREATOR
-} from './utils';
+}
+from './utils';
 
 /**
  * Library version
@@ -86,4 +99,6 @@ export const INFO = {
 	description: 'NB Community scraper library',
 	repository: 'https://github.com/chakszzz/nb-scraper',
 	documentation: 'https://Chakszzz.github.io/NB-Scraper'
-} as const;
+}
+as
+const;
