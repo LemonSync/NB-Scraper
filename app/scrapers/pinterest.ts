@@ -32,7 +32,6 @@ import {
  * 
  * @throws Returns error response
  * 
- * @public
  * @author Wolep
  */
 export async function pinterest(

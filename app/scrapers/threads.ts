@@ -19,6 +19,7 @@ import {
 } from '../utils.js';
 
 /**
+ * @alpha
  * Scrapes media URLs from Threads posts
  * 
  * @example

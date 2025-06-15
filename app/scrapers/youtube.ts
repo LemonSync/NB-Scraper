@@ -91,8 +91,18 @@ const waitForDownloadUrl = async (progressUrl: string): Promise < string > => {
 
 export const Ytdl = {
   /**
+   * @beta
+   * 
    * Download YouTube video as MP3
    * @param url - YouTube video URL
+   * @example
+   * ```ts
+   * import { Ytdl } from 'nb-scraper';
+   * 
+   * const result = await Ytdl.mp3("https://youtube.com/.../");
+   * console.log(result)
+   * ```
+   * @author YogikId
    */
   mp3: async (url: string): Promise < NBScraperResponse <
     YouTubeDownloadResult >> => {
@@ -156,9 +166,19 @@ export const Ytdl = {
     },
   
   /**
+   * @beta
+   * 
    * Download YouTube video in specified quality
    * @param url - YouTube video URL
    * @param quality - Quality option (480, 720, 1080, 360, audio)
+   * @example
+   * ```ts
+   * import { Ytdl } from 'nb-scraper';
+   * 
+   * const result = await Ytdl.mp4("https://youtube.com/.../");
+   * console.log(result)
+   * ```
+   * @author YogikId
    */
   mp4: async (url: string, quality: string = "720"): Promise <
     NBScraperResponse < YouTubeDownloadResult >> => {

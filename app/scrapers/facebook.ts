@@ -27,7 +27,7 @@ interface AjaxResponse {
 
 /**
  * @beta
- * Facebook Video Downloader Service using makeRequest
+ * Facebook Video Downloader Service using
  * 
  * @param url - Facebook video URL (must be in format: https://www.facebook.com/share/v/...)
  * @returns Promise<NBScraperResponse<FacebookVideoData>>
