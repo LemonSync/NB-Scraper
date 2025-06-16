@@ -58,8 +58,8 @@ const LARA_INSTRUCTIONS = {
  *
  * main();
  * ```
- * @author Based on original script by unknown
- * @public
+ * @author Daffa
+ * @alpha
  */
 export async function laraTranslate(
   options: LaraTranslateOptions

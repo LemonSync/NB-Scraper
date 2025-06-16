@@ -20,7 +20,7 @@ export const DEFAULT_CONFIG = {
 /**
  * Creator information
  */
-export const CREATOR = 'NB Team';
+export const CREATOR = 'nb-scraper';
 
 /**
  * Sleep function for delays
@@ -88,7 +88,7 @@ export function createErrorResponse(
   }
 
   return {
-    creator: CREATOR,
+    library: CREATOR,
     status: false,
     error: `[${errorType}] ${errorMessage}${context ? ` | Context: ${JSON.stringify(context)}` : ''}`
   };
@@ -101,7 +101,7 @@ export function createErrorResponse(
  */
 export function createSuccessResponse<T>(data: T): NBScraperResponse<T> {
   return {
-    creator: CREATOR,
+    library: CREATOR,
     status: true,
     data
   };

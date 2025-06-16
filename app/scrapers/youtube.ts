@@ -80,7 +80,12 @@ const waitForDownloadUrl = async (progressUrl: string): Promise < string > => {
         return progressResponse.data.download_url;
       }
     } catch (pollError) {
-      // Silently continue polling on error
+      if (axios.isAxiosError(pollError) && pollError.response?.status! >= 400) {
+        throw new Error(
+          `Remote server responded with ${pollError.response.status}`
+        );
+      }
+      // otherwise continue polling (network glitch / 202 status etc.)
     }
     
     attempts++;
