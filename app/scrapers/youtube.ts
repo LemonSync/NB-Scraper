@@ -113,12 +113,13 @@ export const Ytdl = {
    * ```
    * @author YogikId
    */
-  mp3: async (url: string): Promise < NBScraperResponse <
-    YouTubeDownloadResult >> => {
+  mp3: async (url: string): Promise<NBScraperResponse<YouTubeDownloadResult>> => {
       const urlValidation = validateYouTubeUrl(url);
       if (!urlValidation.status) {
-        return createErrorResponse({ message: "Invalid YouTube URL",
-          type: ScraperErrorType.INVALID_INPUT });
+          return createErrorResponse({
+              message: "Invalid YouTube URL",
+              type: ScraperErrorType.INVALID_INPUT
+          });
       }
       
       const ds = new FormData();
@@ -198,12 +199,10 @@ export const Ytdl = {
       }
       
       if (!Object.keys(validQualities).includes(quality)) {
-        return createErrorResponse("Quality not valid!", {
-          type: ScraperErrorType.INVALID_INPUT,
-          context: {
-            availableQuality: Object.keys(validQualities)
-          }
-        });
+        return createErrorResponse(
+          { message: "Quality not valid!", type: ScraperErrorType.INVALID_INPUT },
+          { availableQuality: Object.keys(validQualities) }
+        );
       }
       
       const qualityParam = validQualities[
