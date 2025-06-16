@@ -18,6 +18,7 @@ export { facebookDownloader } from './facebook';
 export { anyDownloader } from './anydownloader';
 export * from './youtube';
 export * from './liputan6';
+export { laraTranslate } from './laratranslate';
 
 // Re-export types for convenience
 export type {
@@ -64,6 +65,9 @@ export type {
   TikTokPhoto,
   TikTokRenderData,
   TikTokVideoLink,
+  LaraAPI,
+  LaraTranslateData,
+  LaraTranslateOptions,
   FacebookDownloaderAPI,
   FacebookDownloadLink,
   FacebookVideoData,

@@ -419,6 +419,32 @@ export interface Liputan6API {
 }
 
 /**
+ * LaraTranslate Scraper Types
+ */
+export type LaraTranslateMode = 'Faithful' | 'Fluid' | 'Creative' | 'Custom';
+
+export interface LaraTranslateOptions {
+  text: string;
+  targetLanguage: string;
+  sourceLanguage?: string;
+  mode?: LaraTranslateMode;
+  customInstructions?: string[];
+}
+
+export interface LaraTranslateData {
+  mode: LaraTranslateMode;
+  originalText: string;
+  sourceLanguage: string;
+  targetLanguage: string;
+  translation: string;
+  quota: number;
+}
+
+export interface LaraAPI {
+  (options: LaraTranslateOptions): Promise<NBScraperResponse<LaraTranslateData>>;
+}
+
+/**
  * TikTok Scraper Types
  */
 export interface TikTokPhoto {

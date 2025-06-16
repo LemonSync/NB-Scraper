@@ -2,7 +2,14 @@
  * NB Scraper - Community scraper library by Er Rickow
  * 
  * @packageDocumentation
- * @since 1.1.3
+ * @since 1.1.4
+ * 
+ * If you get confused read this documentations, just read the variables or functions section's 
+ * 
+ * Don't forget to install the nb-scraper first:
+ * ```bash
+ * npm i nb-scraper 
+ * ```
  */
 // Export all scrapers
 export * from './scrapers/index';
@@ -57,6 +64,9 @@ export type {
 	TikTokPhoto,
 	TikTokRenderData,
 	TikTokVideoLink,
+  LaraAPI,
+  LaraTranslateData,
+  LaraTranslateOptions,
 	FacebookDownloaderAPI,
 	FacebookDownloadLink,
 	FacebookVideoData,
@@ -86,7 +96,7 @@ from './utils';
  * Library version
  * @public
  */
-export const VERSION = "1.1.9";
+export const VERSION = "1.2.0";
 
 /**
  * Library information
