@@ -20,7 +20,7 @@ export const DEFAULT_CONFIG = {
 /**
  * Creator information
  */
-export const CREATOR = 'NB Team';
+export const CREATOR = 'nb-scraper';
 
 /**
  * Sleep function for delays
