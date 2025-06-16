@@ -19,6 +19,7 @@ const LARA_HEADERS = {
   'origin': 'https://lara.com',
   'referer': 'https://lara.com/',
   'user-agent': 'Postify/1.0.0',
+  'content-type': 'application/json',
 };
 
 const LARA_INSTRUCTIONS = {
@@ -64,7 +65,8 @@ export async function laraTranslate(
   options: LaraTranslateOptions
 ): Promise<NBScraperResponse<LaraTranslateData>> {
   try {
-    validateRequiredParams(options, ['text', 'targetLanguage']);
+    validateRequiredParams(options as unknown as Record < string, unknown > , ['text', 'targetLanguage'],
+    );
     
     const {
       text,
@@ -108,7 +110,7 @@ export async function laraTranslate(
     if (response.data.status !== 200 || !response.data.content) {
         return createErrorResponse(`API returned status ${response.data.status}`, {
             type: ScraperErrorType.API_ERROR,
-            context: { service: 'LaraTranslate', response: response.data as string }
+            context: { service: 'LaraTranslate', response: response.data }
         });
     }
 
