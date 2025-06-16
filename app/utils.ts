@@ -88,7 +88,7 @@ export function createErrorResponse(
   }
 
   return {
-    library: CREATOR,
+    creator: CREATOR,
     status: false,
     error: `[${errorType}] ${errorMessage}${context ? ` | Context: ${JSON.stringify(context)}` : ''}`
   };
@@ -101,7 +101,7 @@ export function createErrorResponse(
  */
 export function createSuccessResponse<T>(data: T): NBScraperResponse<T> {
   return {
-    library: CREATOR,
+    creator: CREATOR,
     status: true,
     data
   };

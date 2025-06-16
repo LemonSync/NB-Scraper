@@ -80,7 +80,11 @@ const waitForDownloadUrl = async (progressUrl: string): Promise < string > => {
         return progressResponse.data.download_url;
       }
     } catch (pollError) {
-      if (axios.isAxiosError(pollError) && pollError.response?.status! >= 400) {
+      if (
+        axios.isAxiosError(pollError) &&
+        pollError.response?.status !== undefined &&
+        pollError.response.status >= 400
+      ) {
         throw new Error(
           `Remote server responded with ${pollError.response.status}`
         );
@@ -113,10 +117,8 @@ export const Ytdl = {
     YouTubeDownloadResult >> => {
       const urlValidation = validateYouTubeUrl(url);
       if (!urlValidation.status) {
-        return createErrorResponse(
-          urlValidation.error ??
-          "Invalid YouTube URL", { type: ScraperErrorType.INVALID_INPUT }
-        );
+        return createErrorResponse({ message: "Invalid YouTube URL",
+          type: ScraperErrorType.INVALID_INPUT });
       }
       
       const ds = new FormData();
@@ -149,7 +151,7 @@ export const Ytdl = {
           type: "mp3"
         });
       } catch (error: unknown) {
-        if ((error as AxiosError).code === 'ECONNABORTED') {
+        if (axios.isAxiosError(error) && error.code === "ECONNABORTED") {
           return createErrorResponse("Request timeout", {
             type: ScraperErrorType.NETWORK_ERROR
           });
@@ -189,10 +191,10 @@ export const Ytdl = {
     NBScraperResponse < YouTubeDownloadResult >> => {
       const urlValidation = validateYouTubeUrl(url);
       if (!urlValidation.status) {
-        return createErrorResponse(
-          urlValidation.error ??
-          "Invalid YouTube URL", { type: ScraperErrorType.INVALID_INPUT }
-        );
+        return createErrorResponse({
+          message: "Invalid YouTube URL",
+          type: ScraperErrorType.INVALID_INPUT
+        });
       }
       
       if (!Object.keys(validQualities).includes(quality)) {
