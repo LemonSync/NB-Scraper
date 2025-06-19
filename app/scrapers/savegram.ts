@@ -54,6 +54,7 @@ const ACTION_URL = `${BASE_URL}/action.php`;
  * }
  * })();
  * ```
+ * @author Puruu Puruu
  */
 export async function savegram(url: string): Promise<NBScraperResponse<SavegramResult>> {
     try {

@@ -138,6 +138,7 @@ export const fileUploadScraper = {
    * }
    * })();
    * ```
+   * @author Nauval YP
    */
   uploadFromBuffer: async (buffer: Buffer, filename?: string): Promise<NBScraperResponse<FileUploadResult>> => {
     try {

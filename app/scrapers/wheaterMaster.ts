@@ -10,6 +10,28 @@ import {
 } from '@/types';
 import { createErrorResponse, createSuccessResponse } from '@/utils';
 
+/**
+ * Get Weater Info
+ * @class WeatherMaster
+ * @private lat - latitude
+ * @private lon - idk what is this
+ * 
+ * @example
+ * ```
+ * import { WeatherMaster } from 'nb-scraper';
+ * // with default location (jakarta)
+ * const weather = new WeatherMaster();
+ * console.log(weather)
+ * 
+ * // or with specific coordinates
+ * const customWeather = new WeatherMaster({
+ * lat: "-6.200000",
+ * lon: "106.816666"
+ * });
+ * console.log(customWeather)
+ * ```
+ * @author Fsgi (Fongsi)
+ */
 export class WeatherMaster {
   private lat: string;
   private lon: string;

@@ -9,7 +9,7 @@
  * ```
  * 
  * @packageDocumentation
- * @since 1.1.5
+ * @since 1.2.1
  *
  */
 // Export all scrapers
@@ -121,7 +121,7 @@ from '@/utils';
  * Library version
  * @public
  */
-export const VERSION = "1.2.0";
+export const VERSION = "1.2.1";
 
 /**
  * Library information
