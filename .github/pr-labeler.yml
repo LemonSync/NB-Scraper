@@ -10,7 +10,7 @@ customLabels:
   - text: 'fix'        # Akan cocok dengan "fix"
     label: 'bug'
   - text: 'chore'      # Akan cocok dengan "chore"
-    label: 'chore'
+    label: 'improvement'
   - text: 'docs'       # Akan cocok dengan "docs"
     label: 'documentation'
   - text: 'test'       # Akan cocok dengan "test"

@@ -229,7 +229,7 @@ export const fileUploadScraper = {
       }
       if (!fileUrl) {
         return createErrorResponse("Could not extract download URL from server response.", {
-          type: ScraperErrorType.PARSING_ERROR
+          type: ScraperErrorType.PARSE_ERROR
         });
       }
       // Validate URL from correct server

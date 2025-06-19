@@ -13,7 +13,7 @@
  *
  */
 // Export all scrapers
-export * from './scrapers/index';
+export * from '@/scrapers/index';
 
 // Export types
 export type {
@@ -67,10 +67,28 @@ export type {
 	TikTokVideoLink,
 	SavegramItem,
 	SavegramResult,
-	WeatherAPIAlertsResponse,
-	WeatherAPIAstronomyResponse,
-	WeatherAPIForecastResponse,
+	WeatherData,
+	WeatherAPIResponse,
 	WeatherMasterOptions,
+	CurrentWeather,
+	CurrentWeatherExtended,
+	CurrentWeatherUnits,
+	HourlyData,
+	HourlyUnits,
+	HourForecast,
+	TimezoneResponse,
+	Condition,
+	Location,
+	DailyData,
+	DailyUnits,
+	Astronomy,
+	Astro,
+	Forecast,
+	ForecastDay,
+	DayForecast,
+	CharSetOptions,
+	FileInfoResult,
+	FileUploadResult,
   LaraAPI,
   LaraTranslateData,
   LaraTranslateOptions,
