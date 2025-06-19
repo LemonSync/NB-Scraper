@@ -149,8 +149,9 @@ export const fileUploadScraper = {
 
       // Deteksi tipe file dari buffer
       const type = await fileTypeFromBuffer(buffer).catch(() => null);
-      let ext = type?.ext;
-      let detectedMime = type?.mime;
+      let ext: string | undefined = type?.ext;
+      let detectedMime: string | undefined = type?.mime;
+
 
       // Generate filename dengan timestamp jika tidak ada
       if (!filename) {
@@ -226,6 +227,11 @@ export const fileUploadScraper = {
           fileUrl = urlMatch?.[0] ?? null;
         }
       }
+      if (!fileUrl) {
+        return createErrorResponse("Could not extract download URL from server response.", {
+          type: ScraperErrorType.PARSING_ERROR
+        });
+      }
       // Validate URL from correct server
       const allowedHosts = ['yupra.dpdns.org'];
       const urlHost = new URL(fileUrl).hostname;
@@ -238,7 +244,7 @@ export const fileUploadScraper = {
 
       return createSuccessResponse<FileUploadResult>({
         filename: filename,
-        downloadUrl: fileUrl,
+        downloadUrl: fileUrl as string,
         size: formatBytes(buffer.length), // Use formatBytes from utils
         mimeType: detectedMime || 'application/octet-stream',
         extension: ext || 'unknown',
