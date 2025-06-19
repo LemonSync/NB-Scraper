@@ -310,7 +310,7 @@ async function hit(url: string | URL, description: string, returnType: 'text' | 
     }
 
     let result: any;
-    let response: Response;
+    let response: Response | undefined;
 
     try {
         response = await fetch(url, {
@@ -329,10 +329,10 @@ async function hit(url: string | URL, description: string, returnType: 'text' | 
         return { result, response };
     } catch (error: any) {
         throw new Error(
-            `Fetch failed at ${description}\nReason: ${error.message}\nStatus: ${response?.status || null} ${response?.statusText || null}\nResponse body: ${result || null}`
-        );
-    }
-}
+            `Fetch failed at ${description}\nReason: ${error.message}\nStatus: ${response?.status || 'N/A'} ${response?.statusText || 'N/A'}\nResponse body: ${result || 'N/A'}`
+         );
+     }
+ }
 
 /**
  * Retrieves the authorization code from the ytmp3.cc website.
@@ -342,7 +342,7 @@ async function hit(url: string | URL, description: string, returnType: 'text' | 
  */
 async function getAuthCode(): Promise<string> {
     const { result: html, response } = await hit("https://ytmp3.cc", "hit homepage ytmp3cc");
-    const valueOnHtmlMatch = html.match(/<script>(.*?)<\/script>/)?.[1];
+    const valueOnHtmlMatch = html.match(/<script[^>]*>(.*?)<\/script>/i)?.[1];
     if (!valueOnHtmlMatch) {
         throw new Error(`Failed to get regex match for code value in html`);
     }

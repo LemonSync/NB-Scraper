@@ -213,31 +213,26 @@ export const fileUploadScraper = {
       // Try several patterns to get the URL
       // Pattern 1: Input field with value URL
       const inputMatch = data.match(/<input[^>]*value="(https?:\/\/[^\"]+)"[^>]*>/);
-      if (inputMatch && inputMatch[1]) {
+      if (inputMatch?.[1]) {
         fileUrl = inputMatch[1];
       } else {
         // Pattern 2: Link in <a> tag
         const linkMatch = data.match(/<a[^>]*href="(https?:\/\/[^\"]+)"[^>]*>/);
-        if (linkMatch && linkMatch[1]) {
+        if (linkMatch?.[1]) {
           fileUrl = linkMatch[1];
         } else {
           // Pattern 3: Standalone URL
           const urlMatch = data.match(/https?:\/\/[^\s"'<>]+/);
-          fileUrl = urlMatch && urlMatch[0] ? urlMatch[0] : null;
+          fileUrl = urlMatch?.[0] ?? null;
         }
       }
-
-      if (!fileUrl) {
-        return createErrorResponse("Could not find download URL from server response.", {
-          type: ScraperErrorType.PARSE_ERROR
-        });
-      }
-
       // Validate URL from correct server
-      if (!fileUrl.includes('yupra.dpdns.org')) {
+      const allowedHosts = ['yupra.dpdns.org'];
+      const urlHost = new URL(fileUrl).hostname;
+      if (!allowedHosts.includes(urlHost)) {
         return createErrorResponse("Invalid URL host from server.", {
           type: ScraperErrorType.API_ERROR,
-          context: { receivedUrl: fileUrl }
+          context: { receivedUrl: fileUrl, expectedHosts: allowedHosts, actualHost: urlHost }
         });
       }
 

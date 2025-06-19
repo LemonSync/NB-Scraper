@@ -418,7 +418,26 @@ export interface Liputan6API {
   getNewsDetail(url: string): Promise<NBScraperResponse<Liputan6NewsDetail>>;
 }
 
+export interface FileUploadResult {
+  filename: string;
+  downloadUrl: string;
+  size: string;
+  mimeType: string;
+  extension: string;
+  uploadedAt: string;
+}
 
+export interface FileInfoResult {
+  filename: string;
+  mimeType: string;
+  extension: string;
+  size: {
+    bytes: number;
+    kb: string;
+    mb: string;
+  };
+  isAllowed: boolean;
+}
 
 /**
  * Savegram Scraper Types
@@ -433,20 +452,298 @@ export interface SavegramResult {
   items: SavegramItem[];
 }
 
-/**
- * WeatherMaster Scraper Types
- */
 export interface WeatherMasterOptions {
-  lat?: string;
-  lon?: string;
+  lat ? : string;
+  lon ? : string;
 }
 
-export interface TimeZoneDBResponse extends Record<string, any> {}
-export interface OpenMeteoForecastResponse extends Record<string, any> {}
-export interface WeatherAPIForecastResponse extends Record<string, any> {}
-export interface WeatherAPIAstronomyResponse extends Record<string, any> {}
-export interface WeatherAPIAlertsResponse extends Record<string, any> {}
-export interface OpenMeteoHourlyResponse extends Record<string, any> {}
+/**
+ * Detailed Weather Data Interfaces for WeatherMaster Scraper
+ * Based on TimeZoneDB, Open-Meteo, and WeatherAPI.com responses.
+ */
+
+export interface TimezoneResponse {
+  status: string;
+  message: string;
+  countryCode: string;
+  countryName: string;
+  regionName: string;
+  cityName: string;
+  zoneName: string;
+  abbreviation: string;
+  gmtOffset: number;
+  dst: string;
+  zoneStart: number | null;
+  zoneEnd: number | null;
+  nextAbbreviation: string | null;
+  timestamp: number;
+  formatted: string;
+}
+
+export interface CurrentWeatherUnits {
+  time: string;
+  interval: string;
+  temperature_2m: string;
+  is_day: string;
+  apparent_temperature: string;
+  pressure_msl: string;
+  relative_humidity_2m: string;
+  precipitation: string;
+  weather_code: string;
+  cloud_cover: string;
+  wind_speed_10m: string;
+  wind_direction_10m: string;
+  wind_gusts_10m: string;
+}
+
+export interface CurrentWeather {
+  time: string;
+  interval: number;
+  temperature_2m: number;
+  is_day: number;
+  apparent_temperature: number;
+  pressure_msl: number;
+  relative_humidity_2m: number;
+  precipitation: number;
+  weather_code: number;
+  cloud_cover: number;
+  wind_speed_10m: number;
+  wind_direction_10m: number;
+  wind_gusts_10m: number;
+}
+
+export interface HourlyUnits {
+  time: string;
+  wind_speed_10m ? : string;
+  wind_direction_10m ? : string;
+  relative_humidity_2m: string;
+  pressure_msl: string;
+  cloud_cover: string;
+  temperature_2m: string;
+  dew_point_2m: string;
+  apparent_temperature: string;
+  precipitation_probability: string;
+  precipitation: string;
+  weather_code: string;
+  visibility: string;
+  uv_index: string;
+}
+
+export interface HourlyData {
+  time: string[];
+  wind_speed_10m ? : number[];
+  wind_direction_10m ? : number[];
+  relative_humidity_2m: number[];
+  pressure_msl: number[];
+  cloud_cover: number[];
+  temperature_2m: number[];
+  dew_point_2m: number[];
+  apparent_temperature: number[];
+  precipitation_probability: number[];
+  precipitation: number[];
+  weather_code: number[];
+  visibility: number[];
+  uv_index: number[];
+}
+
+export interface DailyUnits {
+  time: string;
+  weather_code: string;
+  temperature_2m_max: string;
+  temperature_2m_min: string;
+  sunrise: string;
+  sunset: string;
+  daylight_duration: string;
+  uv_index_max: string;
+  precipitation_sum: string;
+  precipitation_probability_max: string;
+  precipitation_hours: string;
+  wind_speed_10m_max: string;
+  wind_gusts_10m_max: string;
+}
+
+export interface DailyData {
+  time: string[];
+  weather_code: number[];
+  temperature_2m_max: number[];
+  temperature_2m_min: number[];
+  sunrise: string[];
+  sunset: string[];
+  daylight_duration: number[];
+  uv_index_max: number[];
+  precipitation_sum: number[];
+  precipitation_probability_max: number[];
+  precipitation_hours: number[];
+  wind_speed_10m_max: number[];
+  wind_gusts_10m_max: number[];
+}
+
+export interface Location {
+  name: string;
+  region: string;
+  country: string;
+  lat: number;
+  lon: number;
+  tz_id: string;
+  localtime_epoch: number;
+  localtime: string;
+}
+
+export interface Condition {
+  text: string;
+  icon: string;
+  code: number;
+}
+
+export interface CurrentWeatherExtended {
+  last_updated_epoch: number;
+  last_updated: string;
+  temp_c: number;
+  temp_f: number;
+  is_day: number;
+  condition: Condition;
+  wind_mph: number;
+  wind_kph: number;
+  wind_degree: number;
+  wind_dir: string;
+  pressure_mb: number;
+  pressure_in: number;
+  precip_mm: number;
+  precip_in: number;
+  humidity: number;
+  cloud: number;
+  feelslike_c: number;
+  feelslike_f: number;
+  windchill_c: number;
+  windchill_f: number;
+  heatindex_c: number;
+  heatindex_f: number;
+  dewpoint_c: number;
+  dewpoint_f: number;
+  vis_km: number;
+  vis_miles: number;
+  uv: number;
+  gust_mph: number;
+  gust_kph: number;
+}
+
+export interface DayForecast {
+  maxtemp_c: number;
+  maxtemp_f: number;
+  mintemp_c: number;
+  mintemp_f: number;
+  avgtemp_c: number;
+  avgtemp_f: number;
+  maxwind_mph: number;
+  maxwind_kph: number;
+  totalprecip_mm: number;
+  totalprecip_in: number;
+  totalsnow_cm: number;
+  avgvis_km: number;
+  avgvis_miles: number;
+  avghumidity: number;
+  daily_will_it_rain: number;
+  daily_chance_of_rain: number;
+  daily_will_it_snow: number;
+  daily_chance_of_snow: number;
+  condition: Condition;
+  uv: number;
+}
+
+export interface Astro {
+  sunrise: string;
+  sunset: string;
+  moonrise: string;
+  moonset: string;
+  moon_phase: string;
+  moon_illumination: number;
+  is_moon_up: number;
+  is_sun_up: number;
+}
+
+export interface HourForecast {
+  time_epoch: number;
+  time: string;
+  temp_c: number;
+  temp_f: number;
+  is_day: number;
+  condition: Condition;
+  wind_mph: number;
+  wind_kph: number;
+  wind_degree: number;
+  wind_dir: string;
+  pressure_mb: number;
+  pressure_in: number;
+  precip_mm: number;
+  precip_in: number;
+  snow_cm: number;
+  humidity: number;
+  cloud: number;
+  feelslike_c: number;
+  feelslike_f: number;
+  windchill_c: number;
+  windchill_f: number;
+  heatindex_c: number;
+  heatindex_f: number;
+  dewpoint_c: number;
+  dewpoint_f: number;
+  will_it_rain: number;
+  chance_of_rain: number;
+  will_it_snow: number;
+  chance_of_snow: number;
+  vis_km: number;
+  vis_miles: number;
+  gust_mph: number;
+  gust_kph: number;
+  uv: number;
+}
+
+export interface ForecastDay {
+  date: string;
+  date_epoch: number;
+  day: DayForecast;
+  astro: Astro;
+  hour: HourForecast[];
+}
+
+export interface Forecast {
+  forecastday: ForecastDay[];
+}
+
+export interface Astronomy {
+  astro: Astro;
+}
+
+export interface Alerts {
+  alert: any[]; // this type i can't included, because the response api is too large
+}
+
+// Open-Meteo Weather Data Structure
+export interface WeatherData {
+  latitude: number;
+  longitude: number;
+  generationtime_ms: number;
+  utc_offset_seconds: number;
+  timezone: string;
+  timezone_abbreviation: string;
+  elevation: number;
+  current_units ? : CurrentWeatherUnits;
+  current ? : CurrentWeather;
+  hourly_units ? : HourlyUnits;
+  hourly ? : HourlyData;
+  daily_units ? : DailyUnits;
+  daily ? : DailyData;
+}
+
+// WeatherAPI.com General Response Structure
+export interface WeatherAPIResponse {
+  location: Location;
+  current ? : CurrentWeatherExtended;
+  forecast ? : Forecast;
+  astronomy ? : Astronomy; // For astronomy.json endpoint
+  alerts ? : Alerts; // For alerts.json endpoint
+}
+
 
 /**
  * LaraTranslate Scraper Types

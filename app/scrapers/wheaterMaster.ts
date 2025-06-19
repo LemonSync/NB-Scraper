@@ -1,29 +1,14 @@
-/**
- * @fileoverview WeatherMaster Scraper
- * Dev: FongsiDev
- * Contact: t.me/dashmodz
- * Gmail: fongsiapi@gmail.com & fgsidev@neko2.net
- * Group: chat.whatsapp.com/Ke94ex9fNLjE2h8QzhvEiy
- * Telegram Group: t.me/fongsidev
- * Github: github.com/Fgsi-APIs/RestAPIs/issues/new
- * Huggingface: huggingface.co/fgsi1
- * Website: fgsi1-restapi.hf.space
- */
-
 import axios from "axios";
 import CryptoJS from "crypto-js";
 import {
   NBScraperResponse,
   ScraperErrorType,
   WeatherMasterOptions,
-  TimeZoneDBResponse,
-  OpenMeteoForecastResponse,
-  WeatherAPIForecastResponse,
-  WeatherAPIAstronomyResponse,
-  WeatherAPIAlertsResponse,
-  OpenMeteoHourlyResponse
-} from '../types';
-import { createErrorResponse, createSuccessResponse } from '../utils';
+  TimezoneResponse,
+  WeatherData,
+  WeatherAPIResponse
+} from '@/types';
+import { createErrorResponse, createSuccessResponse } from '@/utils';
 
 export class WeatherMaster {
   private lat: string;
@@ -45,7 +30,7 @@ export class WeatherMaster {
 
     this.encryptedKeyV1 = "U2FsdGVkX1+p9rpuXLFpvZ38oYgNYcOWp7jPyv//ABw=";
     this.encryptedKeyV2 = "U2FsdGVkX1+CQzjswYNymYH/fuGRQF5wttP0PVxhBLXfepyhHKbz/v4PaBwan5pt";
-    this.secret = "U2FsdGVkX1+abcd12345=="; // ignore this
+    this.secret = "U2FsdGVkX1+abcd12345=="; // This is a hardcoded secret key, because is too simplify user to use without fill in the secret
 
     this.headers = {
       "User-Agent": "Mozilla/5.0 (Linux; Android 11; 220333QAG Build/RKQ1.211001.001; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/137.0.7151.89 Mobile Safari/537.36",
@@ -70,12 +55,12 @@ export class WeatherMaster {
 
   /**
    * Fetches time zone information from TimeZoneDB.
-   * @returns Promise<NBScraperResponse<TimeZoneDBResponse>>
+   * @returns Promise<NBScraperResponse<TimezoneResponse>>
    */
-  async getTimeZoneDB(): Promise<NBScraperResponse<TimeZoneDBResponse>> {
+  async getTimeZoneDB(): Promise<NBScraperResponse<TimezoneResponse>> {
     try {
       const url = "https://api.timezonedb.com/v2.1/get-time-zone";
-      const res = await axios.get<TimeZoneDBResponse>(url, {
+      const res = await axios.get<TimezoneResponse>(url, { // Updated type
         params: {
           key: this.keyV1,
           format: "json",
@@ -96,12 +81,12 @@ export class WeatherMaster {
 
   /**
    * Fetches weather forecast data from Open-Meteo.
-   * @returns Promise<NBScraperResponse<OpenMeteoForecastResponse>>
+   * @returns Promise<NBScraperResponse<WeatherData>>
    */
-  async getOpenMeteoForecast(): Promise<NBScraperResponse<OpenMeteoForecastResponse>> {
+  async getOpenMeteoForecast(): Promise<NBScraperResponse<WeatherData>> {
     try {
       const url = "https://api.open-meteo.com/v1/forecast";
-      const res = await axios.get<OpenMeteoForecastResponse>(url, {
+      const res = await axios.get<WeatherData>(url, { // Updated type
         params: {
           latitude: this.lat,
           longitude: this.lon,
@@ -126,12 +111,12 @@ export class WeatherMaster {
 
   /**
    * Fetches weather forecast data from WeatherAPI.com.
-   * @returns Promise<NBScraperResponse<WeatherAPIForecastResponse>>
+   * @returns Promise<NBScraperResponse<WeatherAPIResponse>>
    */
-  async getWeatherAPI_Forecast(): Promise<NBScraperResponse<WeatherAPIForecastResponse>> {
+  async getWeatherAPI_Forecast(): Promise<NBScraperResponse<WeatherAPIResponse>> {
     try {
       const url = "https://api.weatherapi.com/v1/forecast.json";
-      const res = await axios.get<WeatherAPIForecastResponse>(url, {
+      const res = await axios.get<WeatherAPIResponse>(url, { // Updated type
         params: {
           key: this.keyV2,
           q: `${this.lat},${this.lon}`,
@@ -149,12 +134,12 @@ export class WeatherMaster {
 
   /**
    * Fetches astronomy data (sunrise, sunset, moon phase) from WeatherAPI.com.
-   * @returns Promise<NBScraperResponse<WeatherAPIAstronomyResponse>>
+   * @returns Promise<NBScraperResponse<WeatherAPIResponse>>
    */
-  async getWeatherAPI_Astronomy(): Promise<NBScraperResponse<WeatherAPIAstronomyResponse>> {
+  async getWeatherAPI_Astronomy(): Promise<NBScraperResponse<WeatherAPIResponse>> {
     try {
       const url = "https://api.weatherapi.com/v1/astronomy.json";
-      const res = await axios.get<WeatherAPIAstronomyResponse>(url, {
+      const res = await axios.get<WeatherAPIResponse>(url, { // Updated type
         params: {
           key: this.keyV2,
           q: `${this.lat},${this.lon}`,
@@ -172,12 +157,12 @@ export class WeatherMaster {
 
   /**
    * Fetches weather alerts from WeatherAPI.com.
-   * @returns Promise<NBScraperResponse<WeatherAPIAlertsResponse>>
+   * @returns Promise<NBScraperResponse<WeatherAPIResponse>>
    */
-  async getWeatherAPI_Alerts(): Promise<NBScraperResponse<WeatherAPIAlertsResponse>> {
+  async getWeatherAPI_Alerts(): Promise<NBScraperResponse<WeatherAPIResponse>> {
     try {
       const url = "https://api.weatherapi.com/v1/alerts.json";
-      const res = await axios.get<WeatherAPIAlertsResponse>(url, {
+      const res = await axios.get<WeatherAPIResponse>(url, { // Updated type
         params: {
           key: this.keyV2,
           q: `${this.lat},${this.lon}`,
@@ -195,12 +180,12 @@ export class WeatherMaster {
 
   /**
    * Fetches hourly weather data from Open-Meteo.
-   * @returns Promise<NBScraperResponse<OpenMeteoHourlyResponse>>
+   * @returns Promise<NBScraperResponse<WeatherData>>
    */
-  async getOpenMeteoHourly(): Promise<NBScraperResponse<OpenMeteoHourlyResponse>> {
+  async getOpenMeteoHourly(): Promise<NBScraperResponse<WeatherData>> {
     try {
       const url = "https://api.open-meteo.com/v1/forecast";
-      const res = await axios.get<OpenMeteoHourlyResponse>(url, {
+      const res = await axios.get<WeatherData>(url, { // Updated type
         params: {
           latitude: this.lat,
           longitude: this.lon,

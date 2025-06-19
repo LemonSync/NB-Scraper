@@ -64,7 +64,8 @@ export async function savegram(url: string): Promise<NBScraperResponse<SavegramR
             return createErrorResponse("Invalid URL format for Instagram.", { type: ScraperErrorType.INVALID_INPUT, context: { url } });
         }
         const domain = extractDomain(url);
-        if (!domain || !domain.includes('instagram.com')) {
+        const validDomains = ['instagram.com', 'www.instagram.com', 'm.instagram.com'];
+        if (!domain || !validDomains.includes(domain)) {
             return createErrorResponse("URL must be from Instagram domain.", { type: ScraperErrorType.INVALID_INPUT, context: { url, domain } });
         }
 
@@ -83,7 +84,7 @@ export async function savegram(url: string): Promise<NBScraperResponse<SavegramR
                 'Referer': `${BASE_URL}/id`,
             },
             data: payload.toString(),
-            timeout: 30000 // Add a timeout for the request
+            timeout: 30000 // Add a timeout for t
         });
 
         if (typeof obfuscatedScript !== 'string' || !obfuscatedScript.includes('eval(function(p,a,c,k,e,d)')) {
