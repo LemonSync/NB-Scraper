@@ -1,5 +1,6 @@
 [![icon](public/logo.png)](https://whatsapp.com/channel/0029Vb5EZCjIiRotHCI1213L)
 [![NPM](https://nodei.co/npm/nb-scraper.png)](https://npmjs.org/package/nb-scraper)
+[![CodeFactor](https://www.codefactor.io/repository/github/chakszzz/nb-scraper/badge)](https://www.codefactor.io/repository/github/chakszzz/nb-scraper)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://typescriptlang.org)
 [![License: Unlicense](https://img.shields.io/badge/license-Unlicense-blue.svg)](http://unlicense.org/)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/f7c79559f8d44dd49ee3fc69bc77aef3)](https://app.codacy.com?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)

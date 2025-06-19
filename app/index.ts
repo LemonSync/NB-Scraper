@@ -9,11 +9,11 @@
  * ```
  * 
  * @packageDocumentation
- * @since 1.2.1
+ * @since 1.2.2
  *
  */
 // Export all scrapers
-export * from '@/scrapers/index';
+export * from './scrapers/index';
 
 // Export types
 export type {
@@ -102,7 +102,7 @@ export type {
 	YouTubeProgressResponse,
 	YouTubeVideoResponse
 }
-from '@/types';
+from './types';
 
 // Export utilities (for advanced users)
 export {
@@ -115,13 +115,13 @@ export {
 	DEFAULT_CONFIG,
 	CREATOR
 }
-from '@/utils';
+from './utils';
 
 /**
  * Library version
  * @public
  */
-export const VERSION = "1.2.1";
+export const VERSION = "1.2.2";
 
 /**
  * Library information

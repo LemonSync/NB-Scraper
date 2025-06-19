@@ -7,8 +7,8 @@ import {
   TimezoneResponse,
   WeatherData,
   WeatherAPIResponse
-} from '@/types';
-import { createErrorResponse, createSuccessResponse } from '@/utils';
+} from '../types';
+import { createErrorResponse, createSuccessResponse } from '../utils';
 
 /**
  * Get Weater Info

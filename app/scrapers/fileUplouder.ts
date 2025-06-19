@@ -7,8 +7,8 @@ import {
   ScraperErrorType,
   FileUploadResult,
   FileInfoResult
-} from '@/types';
-import { createErrorResponse, createSuccessResponse, formatBytes } from '@/utils';
+} from '../types';
+import { createErrorResponse, createSuccessResponse, formatBytes } from '../utils';
 
 
 // Get MIME type based on file extension

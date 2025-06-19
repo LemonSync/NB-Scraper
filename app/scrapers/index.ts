@@ -19,8 +19,8 @@ export { anyDownloader } from './anydownloader';
 export * from './youtube';
 export * from './liputan6';
 export { laraTranslate } from './laratranslate';
-export { savegram } from '@/scrapers/savegram';
-export { WeatherMaster } from '@/scrapers/wheaterMaster';
+export { savegram } from './savegram';
+export { WeatherMaster } from './wheaterMaster';
 
 // Re-export types for convenience
 export type {
@@ -103,4 +103,4 @@ export type {
   YouTubeMP3Response,
   YouTubeProgressResponse,
   YouTubeVideoResponse
-} from '@/types';
+} from '../types';

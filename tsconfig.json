@@ -13,11 +13,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
-    "baseUrl": "./app",
-    "paths": {
-      "@/*": ["*"]
-    }
+    "resolveJsonModule": true
   },
   "include": ["app/**/*"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
