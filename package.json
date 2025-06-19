@@ -1,6 +1,6 @@
 {
   "name": "nb-scraper",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Community scraper library by Newbie Scrape",
   "main": "dist/cjs/index.js",
   "module": "dist/index.mjs",
@@ -57,6 +57,7 @@
     "@types/jest": "^29.5.0",
     "@types/node": "^20.0.0",
     "@types/qs": "latest",
+    "@types/crypto-js": "^4.2.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "eslint": "^8.0.0",
@@ -73,7 +74,9 @@
     "cheerio": "^1.0.0-rc.12",
     "form-data": "latest",
     "fs": "latest",
-    "qs": "latest"
+    "qs": "latest",
+    "crypto-js": "^4.2.0",
+    "file-type": "^19.0.0"
   },
   "engines": {
     "node": ">=16.0.0"
