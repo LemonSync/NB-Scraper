@@ -5,7 +5,7 @@
  */
 
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { NBScraperResponse, ScraperError, ScraperErrorType, RequestConfig } from '@/types';
+import { NBScraperResponse, ScraperError, ScraperErrorType, RequestConfig } from '../types';
 
 /**
  * Default configuration for the scraper
