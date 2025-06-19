@@ -2,7 +2,7 @@
  * Scrapers module exports
  * 
  * @module Scrapers
- * @since 1.1.4
+ * @since 1.1.5
  */
 
 export { blackboxAi } from './blackbox';
@@ -19,6 +19,8 @@ export { anyDownloader } from './anydownloader';
 export * from './youtube';
 export * from './liputan6';
 export { laraTranslate } from './laratranslate';
+export { savegram } from './savegram';
+export { WeatherMaster } from './wheaterMaster';
 
 // Re-export types for convenience
 export type {
@@ -65,6 +67,12 @@ export type {
   TikTokPhoto,
   TikTokRenderData,
   TikTokVideoLink,
+  SavegramItem,
+  SavegramResult,
+  WeatherAPIAlertsResponse,
+  WeatherAPIAstronomyResponse,
+  WeatherAPIForecastResponse,
+  WeatherMasterOptions,
   LaraAPI,
   LaraTranslateData,
   LaraTranslateOptions,

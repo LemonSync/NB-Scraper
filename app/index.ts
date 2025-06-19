@@ -1,15 +1,16 @@
 /**
  * NB Scraper - Community scraper library by Er Rickow
  * 
- * @packageDocumentation
- * @since 1.1.4
- * 
  * If you get confused read this documentations, just read the variables or functions section's 
  * 
  * Don't forget to install the nb-scraper first:
  * ```bash
  * npm i nb-scraper 
  * ```
+ * 
+ * @packageDocumentation
+ * @since 1.1.5
+ *
  */
 // Export all scrapers
 export * from './scrapers/index';
@@ -64,6 +65,12 @@ export type {
 	TikTokPhoto,
 	TikTokRenderData,
 	TikTokVideoLink,
+	SavegramItem,
+	SavegramResult,
+	WeatherAPIAlertsResponse,
+	WeatherAPIAstronomyResponse,
+	WeatherAPIForecastResponse,
+	WeatherMasterOptions,
   LaraAPI,
   LaraTranslateData,
   LaraTranslateOptions,
@@ -77,7 +84,7 @@ export type {
 	YouTubeProgressResponse,
 	YouTubeVideoResponse
 }
-from './types';
+from '@/types';
 
 // Export utilities (for advanced users)
 export {
@@ -90,7 +97,7 @@ export {
 	DEFAULT_CONFIG,
 	CREATOR
 }
-from './utils';
+from '@/utils';
 
 /**
  * Library version

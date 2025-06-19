@@ -418,6 +418,36 @@ export interface Liputan6API {
   getNewsDetail(url: string): Promise<NBScraperResponse<Liputan6NewsDetail>>;
 }
 
+
+
+/**
+ * Savegram Scraper Types
+ */
+export interface SavegramItem {
+  thumbnail: string;
+  quality: string;
+  downloadUrl: string;
+}
+
+export interface SavegramResult {
+  items: SavegramItem[];
+}
+
+/**
+ * WeatherMaster Scraper Types
+ */
+export interface WeatherMasterOptions {
+  lat?: string;
+  lon?: string;
+}
+
+export interface TimeZoneDBResponse extends Record<string, any> {}
+export interface OpenMeteoForecastResponse extends Record<string, any> {}
+export interface WeatherAPIForecastResponse extends Record<string, any> {}
+export interface WeatherAPIAstronomyResponse extends Record<string, any> {}
+export interface WeatherAPIAlertsResponse extends Record<string, any> {}
+export interface OpenMeteoHourlyResponse extends Record<string, any> {}
+
 /**
  * LaraTranslate Scraper Types
  */
