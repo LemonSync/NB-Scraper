@@ -457,6 +457,109 @@ export interface WeatherMasterOptions {
   lon ? : string;
 }
 
+// app/types.ts
+
+/**
+ * APKPure Scraper Types
+ */
+export interface ApkPureTag {
+  name: string;
+  type: string;
+  id: string;
+}
+
+export interface ApkPureSearchResultItem {
+  key: string;
+  packageName: string;
+  title: string;
+  icon: string;
+  installTotal: string;
+  scoreTotal: string;
+  score: string;
+  tags: ApkPureTag[];
+  url: string;
+  fullUrl: string;
+  buttonText: string;
+  isInterveneUrl: boolean;
+  isConfigTag: boolean;
+  showDownloadBtn: boolean;
+  downloadTip: string;
+  downloadText: string;
+  downloadUrl: string;
+  fullDownloadUrl: string;
+  fileId: string;
+  fileSize: number;
+  version: string;
+  versionCode: number;
+  cornerTags: any[]; // Type can be refined if structure is known
+  search_suggestion_id: string;
+  downloadUrlFile: string;
+}
+
+export interface ApkPureSearchOptions {
+  keyword: string;
+  limit?: number;
+}
+
+export interface ApkPureAPI {
+    (options: ApkPureSearchOptions): Promise<NBScraperResponse<ApkPureSearchResultItem[]>>;
+}
+
+/**
+ * YouTube Post Scraper Types
+ */
+export type YouTubePostType = 'voteImage' | 'voteText' | 'multipleImages' | 'singleImage' | 'videoShare' | 'text';
+
+export interface YouTubePostImage {
+  text: string | null;
+  url: string | null;
+}
+
+export interface YouTubePostData {
+  author: string;
+  authorUrl: string;
+  publishTime: string;
+  text: string;
+  like: string | null;
+  images: YouTubePostImage[] | null;
+  videoShareUrl: string | null;
+  postType: YouTubePostType;
+}
+
+export interface YouTubePostAPI {
+  (url: string): Promise<NBScraperResponse<YouTubePostData>>;
+}
+
+/**
+ * AI Lyrics Generator Types
+ */
+export type LyricsGeneratorGenre = 'pop' | 'rock' | 'folk' | 'rap' | 'rnb' | 'jazz' | 'classical' | 'electronic' | 'country' | 'blues';
+export type LyricsGeneratorMood = 'happy' | 'sad' | 'romantic' | 'energetic' | 'peaceful' | 'melancholic' | 'angry' | 'hopeful' | 'nostalgic' | 'uplifting';
+export type LyricsGeneratorStructure = 'verse_chorus' | 'verse_chorus_bridge' | 'verse_prechorus_chorus' | 'verse_chorus_bridge_chorus' | 'verse_only' | 'chorus_only';
+export type LyricsGeneratorLanguage = 'en' | 'id';
+
+export interface LyricsGeneratorOptions {
+  topic: string;
+  genre?: LyricsGeneratorGenre;
+  mood?: LyricsGeneratorMood;
+  structure?: LyricsGeneratorStructure;
+  language?: LyricsGeneratorLanguage;
+}
+
+export interface LyricsGeneratorData {
+  title: string;
+  lyrics: string;
+  topic: string;
+  genre: string;
+  mood: string;
+  structure: string;
+  language: string;
+}
+
+export interface LyricsGeneratorAPI {
+    (options: LyricsGeneratorOptions): Promise<NBScraperResponse<LyricsGeneratorData>>;
+}
+
 /**
  * Detailed Weather Data Interfaces for WeatherMaster Scraper
  * Based on TimeZoneDB, Open-Meteo, and WeatherAPI.com responses.

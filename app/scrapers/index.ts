@@ -21,9 +21,22 @@ export * from './liputan6';
 export { laraTranslate } from './laratranslate';
 export { savegram } from './savegram';
 export { WeatherMaster } from './wheaterMaster';
+export { getYoutubePost } from './youtube-post';
+export {generateLyrics} from './lyrics-generator';
+export {searchApk} from './apkpure';
 
 // Re-export types for convenience
 export type {
+  ApkPureAPI,
+  ApkPureTag,
+  ApkPureSearchOptions,
+  ApkPureSearchResultItem,
+  LyricsGeneratorAPI,
+  LyricsGeneratorData,
+  LyricsGeneratorOptions,
+  YouTubePostAPI,
+  YouTubePostData,
+  YouTubePostImage,
 	AnyDownloaderAPI,
 	AnyDownloadMedia,
 	AnyDownloadResponse,
