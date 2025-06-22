@@ -69,7 +69,7 @@
     "rimraf": "^5.0.5"
   },
   "dependencies": {
-    "cloudscraper": "latest",
+    "cloudscraper": "^4.6.0",
     "axios": "^1.6.0",
     "path": "^0.12.7",
     "cheerio": "^1.0.0-rc.12",

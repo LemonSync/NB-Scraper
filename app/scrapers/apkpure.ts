@@ -8,9 +8,9 @@ import cloudscraper from 'cloudscraper';
 import type {
     NBScraperResponse,
     ApkPureSearchOptions,
-    ApkPureSearchResultItem,
-    ScraperErrorType
+    ApkPureSearchResultItem
 } from '../types';
+import { ScraperErrorType } from '../types';
 import {
     createErrorResponse,
     createSuccessResponse,
@@ -53,7 +53,7 @@ export async function searchApk(
         const { keyword, limit = 20 } = options;
         const url = `https://apkpure.com/api/v1/search_suggestion_new?key=${encodeURIComponent(keyword)}&limit=${limit}`;
 
-        const response: string = await cloudscraper.get(url);
+        const response: string = await cloudscraper(url);
         const results = JSON.parse(response) as any[];
 
         const processedResults = results

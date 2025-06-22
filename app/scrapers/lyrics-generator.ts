@@ -1,7 +1,7 @@
 /* Scrape Ai Generator Lyrics
 */
 
-import type {
+import {
   NBScraperResponse,
   LyricsGeneratorData,
   LyricsGeneratorOptions,
