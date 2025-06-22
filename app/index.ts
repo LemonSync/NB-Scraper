@@ -22,6 +22,10 @@ export type {
 	RequestConfig,
 	ScraperError,
 	ScraperErrorType,
+	ApkPureAPI,
+	ApkPureTag,
+	ApkPureSearchOptions,
+	ApkPureSearchResultItem,
 	AnyDownloaderAPI,
 	AnyDownloadMedia,
 	AnyDownloadResponse,
@@ -89,6 +93,9 @@ export type {
 	CharSetOptions,
 	FileInfoResult,
 	FileUploadResult,
+	LyricsGeneratorAPI,
+	LyricsGeneratorData,
+	LyricsGeneratorOptions,
   LaraAPI,
   LaraTranslateData,
   LaraTranslateOptions,
@@ -100,7 +107,10 @@ export type {
 	YouTubeDownloadResult,
 	YouTubeMP3Response,
 	YouTubeProgressResponse,
-	YouTubeVideoResponse
+	YouTubeVideoResponse,
+	YouTubePostAPI,
+	YouTubePostData,
+	YouTubePostImage
 }
 from './types';
 
