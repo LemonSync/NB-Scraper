@@ -87,8 +87,10 @@ export async function getYoutubePost(url: string): Promise < NBScraperResponse <
       
       if (votePost) {
         let isVoteImage = false;
-        images = votePost.map((v: { text ? : { runs ? : { text: string }
-          [] };image ? : { thumbnails ? : { url: string } [] } }) => {
+        images = votePost.map((v: {
+          text ? : { runs ? : { text: string } [] };
+          image ? : { thumbnails ? : { url: string } [] }
+        }) => {
           const text = v.text?.runs?.[0]?.text || '';
           const thumbnails = v.image?.thumbnails;
           let imageUrl: string | null = null;
