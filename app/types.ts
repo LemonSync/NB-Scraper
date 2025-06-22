@@ -499,6 +499,7 @@ export interface ApkPureSearchResultItem {
 export interface ApkPureSearchOptions {
   keyword: string;
   limit?: number;
+  [key: string]: unknown;
 }
 
 export interface ApkPureAPI {
@@ -544,6 +545,7 @@ export interface LyricsGeneratorOptions {
   mood?: LyricsGeneratorMood;
   structure?: LyricsGeneratorStructure;
   language?: LyricsGeneratorLanguage;
+  [key: string]: unknown;
 }
 
 export interface LyricsGeneratorData {

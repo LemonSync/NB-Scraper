@@ -83,7 +83,7 @@ export async function generateLyrics(
   options: LyricsGeneratorOptions
 ): Promise<NBScraperResponse<LyricsGeneratorData>> {
   try {
-    validateRequiredParams(options as Record<string, unknown>, ['keyword']);
+    validateRequiredParams(options, ['keyword']);
 
     const {
       topic,
