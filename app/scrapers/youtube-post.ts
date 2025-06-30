@@ -46,8 +46,11 @@ export async function getYoutubePost(url: string): Promise < NBScraperResponse <
   YouTubePostData >> {
     try {
       validateRequiredParams({ url }, ['url']);
-      
-      const response = await makeRequest({ url });
+    // THE FIX: Force the response to be treated as plain text
+      const response = await makeRequest({
+        url,
+        responseType: 'text',
+      });
       const html = response.data as string;
       
       const match = html.match(/ytInitialData = (.+?);</)?.[1];
