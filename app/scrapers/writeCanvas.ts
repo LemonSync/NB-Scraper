@@ -1,7 +1,6 @@
 /**
  * @fileoverview Lemon Write scraper function
- * @author 
- * @version 1.1.0
+ * @version 1.1.1
  */
 
 import axios, { AxiosResponse } from 'axios';
@@ -21,7 +20,6 @@ export interface LemonWriteResult {
 
 const LEMON_WRITE_API = 'https://lemon-write.vercel.app/api/generate-book';
 
-
 /**
  * Generates an image using Lemon Write API
  *
@@ -35,18 +33,14 @@ const LEMON_WRITE_API = 'https://lemon-write.vercel.app/api/generate-book';
  *   fs.writeFileSync('output.png', result.data.imageBuffer);
  * }
  */
- 
- 
 export async function lemonWrite(
   text: string,
   options: LemonWriteOptions = {}
 ): Promise<NBScraperResponse<LemonWriteResult>> {
   try {
     validateRequiredParams({ text }, ['text']);
-    if (typeof text !== 'string' || text.trim() === '') {
-      throw new Error('Parameter "text" harus berupa string yang tidak kosong.');
-    }
 
+    // Validate color format
     if (options.color && !/^#?[0-9A-Fa-f]{6}$/.test(options.color)) {
       throw new Error('Parameter "color" harus dalam format hex, misalnya: #000000');
     }
@@ -54,7 +48,9 @@ export async function lemonWrite(
     const payload = {
       text,
       font: options.font || 'default',
-      color: options.color?.startsWith('#') ? options.color : `#${options.color}` || '#000000',
+      color: options.color
+        ? (options.color.startsWith('#') ? options.color : `#${options.color}`)
+        : '#000000',
       size: options.size || '28'
     };
 
@@ -71,15 +67,12 @@ export async function lemonWrite(
     });
   } catch (error: any) {
     if (axios.isAxiosError(error)) {
-      return createErrorResponse(new Error(`Lemon Write API error: ${error.response?.status} ${error.response?.statusText}`), {
-        text,
-        ...(options || {})
-      });
+      return createErrorResponse(
+        new Error(`Lemon Write API error: ${error.response?.status} ${error.response?.statusText}`),
+        { text, ...options }
+      );
     }
 
-    return createErrorResponse(error as Error, {
-      text,
-      ...(options || {})
-    });
+    return createErrorResponse(error as Error, { text, ...options });
   }
-    }
+}
