@@ -1009,5 +1009,5 @@ export interface WriteCanvas {
   /** HTTP-like status code (200 = OK) */
   status: number;
   /** Generated image data */
-  hasil: Buffer;
+  message: Buffer;
 }
