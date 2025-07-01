@@ -1004,5 +1004,5 @@ export interface LemonWriteResult {
 
 export interface WriteCanvas {
   status: number;
-  hasil: Buffer;
+  message: Buffer;
 }
