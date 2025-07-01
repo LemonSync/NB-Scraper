@@ -1002,7 +1002,12 @@ export interface LemonWriteResult {
   contentType: string;
 }
 
+/**
+ * Low-level response from the canvas writer.
+ */
 export interface WriteCanvas {
+  /** HTTP-like status code (200 = OK) */
   status: number;
-  message: Buffer;
+  /** Generated image data */
+  hasil: Buffer;
 }
