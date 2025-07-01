@@ -38,7 +38,7 @@ yarn add nb-scraper
 pnpm add nb-scraper
 ```
 
-## 🛠️ Usage
+## Usage
 
 ### ESM (Modern JavaScript/TypeScript)
 
